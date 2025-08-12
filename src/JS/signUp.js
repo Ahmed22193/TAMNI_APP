@@ -15,8 +15,6 @@ document.getElementById("phone").addEventListener('input', function() {
         document.getElementById("error-message").style.transform = "translateX(0)";
     }
 });
-
-
 function handleSubmit(e){
 
     e.preventDefault();
@@ -59,8 +57,6 @@ function handleSubmit(e){
        gender:selectedGender
 
    };
-
-
 
    fetch('https://tamni.vercel.app/api/auth/signUp', {
     method: 'POST',

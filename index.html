@@ -7,13 +7,37 @@
     <meta name="description" content="طمني هو نظام متكامل للاستشارات الطبية عبر الإنترنت يربط بين المرضى والأطباء بسهولة وسرعة مع الحفاظ على خصوصيتك وأمان معلوماتك.">
     <meta name="keywords" content="طمني, استشارات طبية, منصة طبية, استشارات أونلاين, صحة, أطباء, رعاية صحية">
     <meta name="author" content="فريق طمني">
-
+    <link rel="stylesheet" href="src/styles/main.style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Italiana&family=Saira:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/styles/index.css">
 </head>
 <body>
-
-    <h1>Welcome home page</h1>
-    <p>signUp with us AS a Doctor</p>
-    <button><a href="src/pages/Auth/signUp.html">Sign Up</a></button>
-
+   <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="#">TAMNI</a>
+        </div>
+        
+        <ul class="navbar-links">
+            <li><a class="a_link" href="index.html">Home</a></li>
+            <li><a class="a_link" href="src/pages/AllDoctors.html">Doctors</a></li>
+            <li><a class="a_link" href="src/pages/doctor/ConsultationsOrder.html">My Consultations</a></li>
+        </ul>
+    </nav>
+    <div class="parent">
+        <div class="caption">
+            <h2>Get ready for your best ever <span>Medical Experience</span></h2>
+            <button class="btn btn-1">Create Profile</button>
+            <button class="btn btn-2" onclick="window.location.href='src/pages/Auth/login.html'">LOGIN</button>
+        </div>
+        <div class="image">
+            <img src="src/images/doctor.png" alt="">
+        </div>
+    </div>
 </body>
 </html>
+<!-- 
+    <button><a href="src/pages/Auth/signUp.html">Sign Up</a></button>
+
+-->
