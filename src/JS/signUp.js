@@ -86,7 +86,7 @@ function handleSubmit(e){
         api_message.classList.add('activ-seccess');
         setTimeout(() => {
             document.getElementById('myForm').reset();
-            window.location.href = '../pages/Auth/login.html';
+            window.location.href = 'login.html'; ///////////
         }, 3000); // بعد 3 ثواني هيروح على صفحة تسجيل الدخول
     })
     .catch(error => {
