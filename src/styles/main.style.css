@@ -15,7 +15,7 @@
     background-color: rgba(0, 19, 105, 0.753);
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: fixed;
-    left: auto;
+    left: 80px;
     top: 10px;
     border-radius: 10px;
 }
@@ -59,6 +59,7 @@
 }
 @media (max-width: 1120px){
     .navbar {
+        left: 10px;
         margin: 10px auto;
         width: 95%;
         flex-direction: column;

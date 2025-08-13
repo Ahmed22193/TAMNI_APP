@@ -1,41 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>طمني - منصة استشارات طبية ذكية وآمنة</title>
-    <meta name="description" content="طمني هو نظام متكامل للاستشارات الطبية عبر الإنترنت يربط بين المرضى والأطباء بسهولة وسرعة مع الحفاظ على خصوصيتك وأمان معلوماتك.">
-    <meta name="keywords" content="طمني, استشارات طبية, منصة طبية, استشارات أونلاين, صحة, أطباء, رعاية صحية">
-    <meta name="author" content="فريق طمني">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Italiana&family=Saira:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/styles/main.style.css">
-    <link rel="stylesheet" href="src/styles/index.css">
-</head>
-<body>
-   <nav class="navbar">
-        <div class="navbar-brand">
-            <a href="#">TAMNI</a>
-        </div>
-        
-        <ul class="navbar-links">
-            <li><a class="a_link" href="index.html">Home</a></li>
-            <li><a class="a_link" href="src/pages/AllDoctors.html">Doctors</a></li>
-            <li><a class="a_link" href="src/pages/doctor/ConsultationsOrder.html">My Consultations</a></li>
-        </ul>
-    </nav>
+    <meta
+      name="description"
+      content="طمني هو نظام متكامل للاستشارات الطبية عبر الإنترنت يربط بين المرضى والأطباء بسهولة وسرعة مع الحفاظ على خصوصيتك وأمان معلوماتك."
+    />
+    <meta
+      name="keywords"
+      content="طمني, استشارات طبية, منصة طبية, استشارات أونلاين, صحة, أطباء, رعاية صحية"
+    />
+    <meta name="author" content="فريق طمني" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Italiana&family=Saira:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles/main.style.css" />
+    <link rel="stylesheet" href="src/styles/index.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-brand">
+        <a href="#">TAMNI</a>
+      </div>
+
+      <ul class="navbar-links" id="navbarLinks">
+        <!-- هحط هنا اللينكات بالجافاسكريت علي حسب نوع المستخدم -->
+      </ul>
+    </header>
     <div class="parent">
-        <div class="caption">
-            <h2>Get ready for your best ever <span>Medical Experience</span></h2>
-            <button class="btn btn-1" onclick="window.location.href='src/pages/patientOrDoctor.html'">Create Profile</button>
-            <button class="btn btn-2" onclick="window.location.href='src/pages/Auth/login.html'">LOGIN</button>
-        </div>
-        <div class="image">
-            <img src="src/images/doctor.png" alt="">
-        </div>
+        
+      <div class="caption">
+        <h3 id="welcomeMessage"></h3>
+        <h2>Get ready for your best ever <span>Medical Experience</span></h2>
+        <button
+        id="createProfileBtn"
+          class="btn btn-1"
+          onclick="window.location.href='src/pages/patientOrDoctor.html'"
+        >
+          Create Profile
+        </button>
+        <button
+          id="loginBtn"
+          class="btn btn-2"
+          onclick="window.location.href='src/pages/Auth/login.html'"
+        >
+          LOGIN
+        </button>
+      </div>
+      <div class="doctor-animation">
+        <iframe
+          src="https://lottie.host/embed/9d98df24-0dc7-4398-9a33-cc5ba2824a55/E8hkjD9jF1.lottie"
+          style="
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            border: none;
+            display: block;
+            margin: auto;
+          "
+        ></iframe>
+
+      </div>
     </div>
-</body>
+    <script src="src/JS/index.js"></script>
+  </body>
 </html>
 <!-- 
     <button><a href="src/pages/Auth/signUp.html">Sign Up</a></button>

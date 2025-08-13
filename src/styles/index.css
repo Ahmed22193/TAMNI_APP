@@ -1,130 +1,136 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Dancing+Script:wght@400..700&family=Oswald:wght@200..700&family=Satisfy&display=swap');
+/* ===== Reset & Base Styles ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
+
 body {
-    background-image:url('/src/images/bgHome.jpg'); 
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    font-family: 'Barlow', sans-serif;
+    font-family: 'Barlow', Arial, sans-serif;
     width: 90%;
     margin: auto;
+    background-color: #f9f9f9; /* لون فاتح بدلاً من الصورة */
 }
-.parent{
-    width:100%;
+
+/* ===== Layout ===== */
+.parent {
     display: flex;
-    flex-direction: row;
-    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 40px 0;
 }
-.image{
-    width: 50%;
-    display: flex;
-    align-content: center;
+
+/* ===== Caption Section ===== */
+.caption {
+    flex: 1;
     text-align: center;
-    justify-content: center;
-    padding: 80px 5px 5px 5px;
 }
-.image img {
-    max-width: auto;
-    height: 95%;
-}
-.caption { 
-    width: 50%; 
-    padding: 20px; 
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    text-align: center;
-    justify-content: center;
-}
-.caption span{
-    color:#6a5acd;
+
+.caption span {
+    color: #6a5acd;
     font-family: "Satisfy", cursive;
-    font-weight: 400;
-    font-style: normal;
 }
-.caption h2{
-    font-size: 70px;
+
+.caption h2 {
+    font-size: 3.5rem;
     color: #1E1A4D;
     margin: 30px auto;
     font-weight: 700;
     padding: 10px 30px;
-    font-family: 'Barlow', sans-serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    
 }
 
-.btn{
+/* ===== Buttons ===== */
+.btn {
     width: 230px;
     padding: 13px 0;
-    border: none; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    color: black;
-    font-weight: bold; 
-    font-size:large;
-    margin:10px auto;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    margin: 10px auto;
     color: white;
     transition: all 0.3s;
 }
-.btn-1{
+.btn-1 {
     background-color: #cccccc;
-    box-shadow: 5px 8px 8px rgba(1, 1, 1, 0.1); 
     color: #1E1A4D;
-} 
-.btn-1:hover{
+    box-shadow: 5px 8px 8px rgba(1, 1, 1, 0.1);
+}
+.btn-1:hover {
     background-color: #b3b3b3;
     color: #ffffff;
-    
 }
-.btn-2{
+
+.btn-2 {
     background-color: #6a5acd;
-    box-shadow: 5px 5px 8px 8px rgba(1, 1, 1, 0.1); 
+    box-shadow: 5px 5px 8px rgba(1, 1, 1, 0.1);
 }
-.btn-2:hover{
+.btn-2:hover {
     background-color: #493bb2;
     color: #ffffff;
-    transition: all 0.2s;
+}
+
+/* ===== Animation Section ===== */
+.doctor-animation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+.doctor-animation iframe {
+    width: 100%;
+    max-width: 500px; /* أكبر حجم ممكن */
+    height: 500px;
+    border: none;
 }
 
 
-@media (max-width: 1120px){
-    body{
-        position: relative;
-        width: 95%;
-    }
+
+.welcome-message {  
+    direction: rtl;
+    background: linear-gradient(135deg, #6a5acd, #493bb2);
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-top: 60px;  
+    animation: fadeIn 0.8s ease-out;
+}
+
+.welcome-message span {
+    color: #ffd700; /* ذهبي مميز */
+    font-weight: bold;
+}
+
+/* تأثير دخول الرسالة */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-80px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+
+
+/* ===== Responsive Design ===== */
+@media (max-width: 900px) {
     .parent {
-        flex-direction: column;
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        transform: translate(50%, 50%);
+        flex-direction: column-reverse;
+        text-align: center;
     }
-    .image {
-        width: 100%;
-        padding: 20px 5px;
-        position: absolute;
-        z-index: -1;
-        top: 30px;
-        left: 0;
-    }
-    .image img{
-        max-width: 100%;
-        height: auto;
-        filter: blur(4px);
-    }
-    .caption {
-        width: 100%;
-        padding: 20px 5px;
+    .doctor-animation iframe {
+        max-width: 350px;
+        height: 350px;
     }
     .caption h2 {
-        font-size: 40px;
+        font-size: 2rem;
     }
     .btn {
         width: 100%;
+        max-width: 300px;
     }
 }
