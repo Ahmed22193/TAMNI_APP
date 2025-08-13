@@ -1,15 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../../styles/main.style.css">
-    <link rel="stylesheet" href="../../styles/login.css">
-</head>
-<body>
-    login page
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LogIn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../styles/main.style.css" />
+    <link rel="stylesheet" href="../../styles/login.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-brand">
+        <a href="#">TAMNI</a>
+      </div>
+      <ul class="navbar-links" id="navbarLinks">
+        <!-- هحط هنا اللينكات بالجافاسكريت علي حسب نوع المستخدم -->
+      </ul>
+    </header>
 
+    <div class="main">
+      <div class="imgg">
+        <img src="" alt="image" />
+      </div>
+      <form id="myForm">
+        <h1>LOGIN</h1>
+        <input
+          type="tel"
+          name="Phone"
+          class="phone"
+          id="Phone"
+          placeholder="Phone Number"
+          required
+        />
+        <input
+          type="password"
+          name="Password"
+          id="Password"
+          class="password"
+          placeholder="Password"
+          required
+        />
+        <button class="btn-submit" id="btn-sub">Submit</button>
+        <h4 id="message"></h4>
+      </form>
+    </div>
     <script src="../../JS/login.js"></script>
-</body>
+  </body>
 </html>
