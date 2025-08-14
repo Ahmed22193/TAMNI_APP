@@ -60,7 +60,6 @@ function renderNavbar() {
 
     if (createProfileBtn) createProfileBtn.style.display = "none";
     if (loginBtn) loginBtn.style.display = "none";
-
     if (welcomeMessage) {
       welcomeMessage.innerHTML = `مرحبا, <span>${
         userData?.name || "User"
@@ -69,7 +68,7 @@ function renderNavbar() {
     }
     if (userData?.role === "ADMIN") {
       linksHtml = `
-        <li><a class="a_link" href="index.html">Home</a></li>
+        <li><a class="a_link" href="/index.html">Home</a></li>
         <li><a class="a_link" href="/src/pages/admin/GetAllDoctors.html">Doctors</a></li>
         <li><a class="a_link" href="/src/pages/admin/AllPatients.html">Patients</a></li>
         <li><a class="a_link" href="/src/pages/admin/AllConsultations.html">Consultations</a></li>
@@ -101,6 +100,5 @@ function renderNavbar() {
   }
   navbarLinks.innerHTML = linksHtml;
 }
-
 checkTokenExpiry();
 renderNavbar();
