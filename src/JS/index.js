@@ -3,7 +3,12 @@ const token = localStorage.getItem("token");
 const welcomeMessage = document.getElementById("welcomeMessage");
 const createProfileBtn = document.getElementById("createProfileBtn");
 const loginBtn = document.getElementById("loginBtn");
-const baseURL = `${window.location.origin}/TAMNI_APP`;
+
+// detect local env including 127.0.0.1, localhost, and file://
+const isLocal =
+  ["localhost", "127.0.0.1"].includes(window.location.hostname) ||
+  window.location.protocol === "file:";
+const baseURL = isLocal ? "/" : "/TAMNI_APP";
 function parseJwt(token) {
   try {
     const base64Url = token.split(".")[1];
@@ -68,37 +73,38 @@ function renderNavbar() {
     }
     if (userData?.role === "ADMIN") {
       linksHtml = `
-        <li><a class="a_link" href=${baseURL}/index.html>Home</a></li>
-        <li><a class="a_link" href=${baseURL}/src/pages/admin/GetAllDoctors.html>Doctors</a></li>
-        <li><a class="a_link" href=${baseURL}/src/pages/admin/AllPatients.html>patients</a></li>
-        <li><a class="a_link" href=${baseURL}/src/pages/admin/AllConsultations.html>Consultations</a></li>
-        <li><a class="a_link" href=${baseURL}/src/pages/admin/status.html>status</a></li>
+        <li><a class="a_link" href="${baseURL}index.html">Home</a></li>
+        <li><a class="a_link" href="${baseURL}src/pages/admin/GetAllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="${baseURL}src/pages/admin/AllPatients.html">Patients</a></li>
+        <li><a class="a_link" href="${baseURL}src/pages/admin/AllConsultations.html">Consultations</a></li>
+        <li><a class="a_link" href="${baseURL}src/pages/admin/status.html">Status</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     } else if (userData?.userType === "DOCTOR") {
       linksHtml = `
-        <li><a class="a_link" href=${baseURL}/index.html>Home</a></li>
-        <li><a class="a_link" href=${baseURL}/src/pages/AllDoctors.html>Doctors</a></li>
-        <li><a class="a_link" href=${baseURL}/src/pages/doctor/ConsultationsOrder.html>Consultations</a></li>
+        <li><a class="a_link" href="${baseURL}index.html">Home</a></li>
+        <li><a class="a_link" href="${baseURL}src/pages/AllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="${baseURL}src/pages/doctor/ConsultationsOrder.html">Consultations</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     } else {
       linksHtml = `
-        <li><a class="a_link" href=${baseURL}/index.html>Home</a></li>
-        <li><a class="a_link" href=${baseURL}/src/pages/AllDoctors.html>Doctors</a></li>
-        <li><a class="a_link" href=${baseURL}/src/pages/patient/MyConsultations.html>Consultations</a></li>
+        <li><a class="a_link" href="${baseURL}index.html">Home</a></li>
+        <li><a class="a_link" href="${baseURL}src/pages/AllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="${baseURL}src/pages/patient/MyConsultations.html">Consultations</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     }
   } else {
     linksHtml = `
-      <li><a class="a_link" href=${baseURL}/index.html>Home</a></li>
-      <li><a class="a_link" href=${baseURL}/src/pages/AllDoctors.html>Doctors</a></li>
-      <li><a class="a_link" href=${baseURL}/src/pages/Auth/login.html>Login</a></li>
-      <li><a class="a_link" href=${baseURL}/src/pages/patientOrDoctor.html>Register</a></li>
+      <li><a class="a_link" href="${baseURL}index.html">Home</a></li>
+      <li><a class="a_link" href="${baseURL}src/pages/AllDoctors.html">Doctors</a></li>
+      <li><a class="a_link" href="${baseURL}src/pages/Auth/login.html">Login</a></li>
+      <li><a class="a_link" href="${baseURL}src/pages/patientOrDoctor.html">Register</a></li>
     `;
   }
   navbarLinks.innerHTML = linksHtml;
 }
+
 checkTokenExpiry();
 renderNavbar();
