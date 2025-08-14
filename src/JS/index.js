@@ -3,7 +3,7 @@ const token = localStorage.getItem("token");
 const welcomeMessage = document.getElementById("welcomeMessage");
 const createProfileBtn = document.getElementById("createProfileBtn");
 const loginBtn = document.getElementById("loginBtn");
-
+const baseURL = `${window.location.origin}/TAMNI_APP`;
 function parseJwt(token) {
   try {
     const base64Url = token.split(".")[1];
@@ -61,39 +61,41 @@ function renderNavbar() {
     if (loginBtn) loginBtn.style.display = "none";
 
     if (welcomeMessage) {
-      welcomeMessage.innerHTML = `مرحبا, <span>${userData?.name || "User"}</span> !`;
+      welcomeMessage.innerHTML = `مرحبا, <span>${
+        userData?.name || "User"
+      }</span> !`;
       welcomeMessage.classList.add("welcome-message");
     }
     if (userData?.role === "ADMIN") {
       linksHtml = `
-        <li><a class="a_link" href="./index.html">Home</a></li>
-        <li><a class="a_link" href="./src/pages/admin/GetAllDoctors.html">Doctors</a></li>
-        <li><a class="a_link" href="./src/pages/admin/AllPatients.html">patients</a></li>
-        <li><a class="a_link" href="./src/pages/admin/AllConsultations.html">Consultations</a></li>
-        <li><a class="a_link" href="./src/pages/admin/status.html">status</a></li>
+        <li><a class="a_link" href=${baseURL}/index.html>Home</a></li>
+        <li><a class="a_link" href=${baseURL}/src/pages/admin/GetAllDoctors.html>Doctors</a></li>
+        <li><a class="a_link" href=${baseURL}/src/pages/admin/AllPatients.html>patients</a></li>
+        <li><a class="a_link" href=${baseURL}/src/pages/admin/AllConsultations.html>Consultations</a></li>
+        <li><a class="a_link" href=${baseURL}/src/pages/admin/status.html>status</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     } else if (userData?.userType === "DOCTOR") {
       linksHtml = `
-        <li><a class="a_link" href="./index.html">Home</a></li>
-        <li><a class="a_link" href="./src/pages/AllDoctors.html">Doctors</a></li>
-        <li><a class="a_link" href="./src/pages/doctor/ConsultationsOrder.html">Consultations</a></li>
+        <li><a class="a_link" href=${baseURL}/index.html>Home</a></li>
+        <li><a class="a_link" href=${baseURL}/src/pages/AllDoctors.html>Doctors</a></li>
+        <li><a class="a_link" href=${baseURL}/src/pages/doctor/ConsultationsOrder.html>Consultations</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     } else {
       linksHtml = `
-        <li><a class="a_link" href="./index.html">Home</a></li>
-        <li><a class="a_link" href="./src/pages/AllDoctors.html">Doctors</a></li>
-        <li><a class="a_link" href="./src/pages/patient/MyConsultations.html">Consultations</a></li>
+        <li><a class="a_link" href=${baseURL}/index.html>Home</a></li>
+        <li><a class="a_link" href=${baseURL}/src/pages/AllDoctors.html>Doctors</a></li>
+        <li><a class="a_link" href=${baseURL}/src/pages/patient/MyConsultations.html>Consultations</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     }
   } else {
     linksHtml = `
-      <li><a class="a_link" href="./index.html">Home</a></li>
-      <li><a class="a_link" href="./src/pages/AllDoctors.html">Doctors</a></li>
-      <li><a class="a_link" href="./src/pages/Auth/login.html">Login</a></li>
-      <li><a class="a_link" href="./src/pages/patientOrDoctor.html">Register</a></li>
+      <li><a class="a_link" href=${baseURL}/index.html>Home</a></li>
+      <li><a class="a_link" href=${baseURL}/src/pages/AllDoctors.html>Doctors</a></li>
+      <li><a class="a_link" href=${baseURL}/src/pages/Auth/login.html>Login</a></li>
+      <li><a class="a_link" href=${baseURL}/src/pages/patientOrDoctor.html>Register</a></li>
     `;
   }
   navbarLinks.innerHTML = linksHtml;
