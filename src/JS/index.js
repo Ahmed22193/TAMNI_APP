@@ -66,34 +66,34 @@ function renderNavbar() {
     }
     if (userData?.role === "ADMIN") {
       linksHtml = `
-        <li><a class="a_link" href="/index.html">Home</a></li>
-        <li><a class="a_link" href="/src/pages/admin/GetAllDoctors.html">Doctors</a></li>
-        <li><a class="a_link" href="/src/pages/admin/AllPatients.html">patients</a></li>
-        <li><a class="a_link" href="/src/pages/admin/AllConsultations.html">Consultations</a></li>
-        <li><a class="a_link" href="/src/pages/admin/status.html">status</a></li>
+        <li><a class="a_link" href="./index.html">Home</a></li>
+        <li><a class="a_link" href="./src/pages/admin/GetAllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="./src/pages/admin/AllPatients.html">patients</a></li>
+        <li><a class="a_link" href="./src/pages/admin/AllConsultations.html">Consultations</a></li>
+        <li><a class="a_link" href="./src/pages/admin/status.html">status</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     } else if (userData?.userType === "DOCTOR") {
       linksHtml = `
-        <li><a class="a_link" href="/index.html">Home</a></li>
-        <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
-        <li><a class="a_link" href="/src/pages/doctor/ConsultationsOrder.html">Consultations</a></li>
+        <li><a class="a_link" href="./index.html">Home</a></li>
+        <li><a class="a_link" href="./src/pages/AllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="./src/pages/doctor/ConsultationsOrder.html">Consultations</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     } else {
       linksHtml = `
-        <li><a class="a_link" href="/index.html">Home</a></li>
-        <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
-        <li><a class="a_link" href="/src/pages/patient/MyConsultations.html">Consultations</a></li>
+        <li><a class="a_link" href="./index.html">Home</a></li>
+        <li><a class="a_link" href="./src/pages/AllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="./src/pages/patient/MyConsultations.html">Consultations</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     }
   } else {
     linksHtml = `
-      <li><a class="a_link" href="/index.html">Home</a></li>
-      <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
-      <li><a class="a_link" href="/src/pages/Auth/login.html">Login</a></li>
-      <li><a class="a_link" href="/src/pages/patientOrDoctor.html">Register</a></li>
+      <li><a class="a_link" href="./index.html">Home</a></li>
+      <li><a class="a_link" href="./src/pages/AllDoctors.html">Doctors</a></li>
+      <li><a class="a_link" href="./src/pages/Auth/login.html">Login</a></li>
+      <li><a class="a_link" href="./src/pages/patientOrDoctor.html">Register</a></li>
     `;
   }
   navbarLinks.innerHTML = linksHtml;
