@@ -3,9 +3,10 @@ const token = localStorage.getItem("token");
 const welcomeMessage = document.getElementById("welcomeMessage");
 const createProfileBtn = document.getElementById("createProfileBtn");
 const loginBtn = document.getElementById("loginBtn");
+
 function parseJwt(token) {
   try {
-    const base64Url = token.split(".")[1]; // ناخد الـ payload
+    const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
     const jsonPayload = decodeURIComponent(
       atob(base64)
@@ -19,74 +20,82 @@ function parseJwt(token) {
     return null;
   }
 }
+
 function logout() {
   const confirmLogout = prompt("Enter 'logout' to confirm logout");
   if (confirmLogout === "logout") {
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
     renderNavbar();
+    window.location.reload();
   }
 }
+
 function checkTokenExpiry() {
   if (!token) return;
-
   const decoded = parseJwt(token);
   if (!decoded?.exp) return;
-  const currentTime = Math.floor(Date.now() / 1000); // الوقت الحالي بالثواني
+  const currentTime = Math.floor(Date.now() / 1000);
 
   if (currentTime > decoded.exp) {
     console.log("🔴 التوكين انتهى");
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
-    renderNavbar(); // إعادة بناء النافبار كزائر
+    renderNavbar();
   }
 }
+
 function renderNavbar() {
   const navbarLinks = document.getElementById("navbarLinks");
+  if (!navbarLinks) return; // لو الصفحة مفيهاش Navbar
+
   const token = localStorage.getItem("token");
   let linksHtml = "";
 
-  // لو فيه توكين
   if (token) {
     const userData = parseJwt(token);
     localStorage.setItem("userData", JSON.stringify(userData));
     console.log(userData);
 
-    [createProfileBtn, loginBtn].forEach((btn) => {
-      btn.style.display = "none";
-    });
-    welcomeMessage.innerHTML = `مرحبا, <span>${
-      userData?.name || "User"
-    }</span> !`;
-    welcomeMessage.classList.add("welcome-message");
+    if (createProfileBtn) createProfileBtn.style.display = "none";
+    if (loginBtn) loginBtn.style.display = "none";
 
-    if (userData?.role === "admin") {
+    if (welcomeMessage) {
+      welcomeMessage.innerHTML = `مرحبا, <span>${userData?.name || "User"}</span> !`;
+      welcomeMessage.classList.add("welcome-message");
+    }
+    if (userData?.role === "ADMIN") {
       linksHtml = `
-                <li><a class="a_link" href="../../../index.html">Home</a></li>
-                <li><a class="a_link" href="src/pages/AllDoctors.html">Doctors</a></li>
-                <li><a class="a_link" href="src/pages/doctor/ConsultationsOrder.html">My Consultations</a></li>
-                <li><a class="a_link" href="src/pages/admin/Dashboard.html">Dashboard</a></li>
-                <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
-            `;
+        <li><a class="a_link" href="/index.html">Home</a></li>
+        <li><a class="a_link" href="/src/pages/admin/GetAllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="/src/pages/admin/AllPatients.html">patients</a></li>
+        <li><a class="a_link" href="/src/pages/admin/AllConsultations.html">Consultations</a></li>
+        <li><a class="a_link" href="/src/pages/admin/status.html">status</a></li>
+        <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
+      `;
+    } else if (userData?.userType === "DOCTOR") {
+      linksHtml = `
+        <li><a class="a_link" href="/index.html">Home</a></li>
+        <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="/src/pages/doctor/ConsultationsOrder.html">Consultations</a></li>
+        <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
+      `;
     } else {
       linksHtml = `
-                <li><a class="a_link" href="../../../index.html">Home</a></li>
-                <li><a class="a_link" href="src/pages/AllDoctors.html">Doctors</a></li>
-                <li><a class="a_link" href="src/pages/doctor/ConsultationsOrder.html">My Consultations</a></li>
-                <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
-            `;
+        <li><a class="a_link" href="/index.html">Home</a></li>
+        <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
+        <li><a class="a_link" href="/src/pages/patient/MyConsultations.html">Consultations</a></li>
+        <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
+      `;
     }
-  }
-  // لو مفيش توكين (زائر)
-  else {
+  } else {
     linksHtml = `
-            <li><a class="a_link" href="../../../index.html">Home</a></li>
-            <li><a class="a_link" href="src/pages/AllDoctors.html">Doctors</a></li>
-            <li><a class="a_link" href="src/pages/login.html">Login</a></li>
-            <li><a class="a_link" href="src/pages/register.html">Register</a></li>
-        `;
+      <li><a class="a_link" href="/index.html">Home</a></li>
+      <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
+      <li><a class="a_link" href="/src/pages/Auth/login.html">Login</a></li>
+      <li><a class="a_link" href="/src/pages/patientOrDoctor.html">Register</a></li>
+    `;
   }
-
   navbarLinks.innerHTML = linksHtml;
 }
 checkTokenExpiry();

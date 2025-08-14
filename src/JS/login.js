@@ -20,7 +20,7 @@ function handleSubmit(event) {
     body: JSON.stringify(formData),
   })
     .then((response) => {
-      if (response.ok) {
+      if (response.status === 200) {
         btnSubmit.innerHTML = `Done`;
         message.innerHTML = `login successful! Redirecting...`;
         setTimeout(()=>{
@@ -32,6 +32,11 @@ function handleSubmit(event) {
         message.innerHTML = `Invalid phone or password. Please try again.`;
       } else if (response.status === 404) {
         message.innerHTML = `User not found. Please check your phone number.`;
+        btnSubmit.innerHTML = `submit`;
+        btnSubmit.disabled = false;
+      } else {
+        message.innerHTML = `Unexpected error occurred. Please try again later.`;
+        throw new Error("Unexpected response status: " + response.status);
       }
       return response.json();
     })
