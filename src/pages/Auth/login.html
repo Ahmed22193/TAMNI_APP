@@ -12,11 +12,15 @@
     />
     <link rel="stylesheet" href="../../styles/main.style.css" />
     <link rel="stylesheet" href="../../styles/login.css" />
+    <script
+  src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js"
+  type="module"
+></script>
   </head>
   <body>
     <header class="navbar">
       <div class="navbar-brand">
-        <a href="#">TAMNI</a>
+        <a href="#"><span>T</span>AMNI</a>
       </div>
       <ul class="navbar-links" id="navbarLinks">
         <!-- هحط هنا اللينكات بالجافاسكريت علي حسب نوع المستخدم -->
@@ -24,32 +28,35 @@
     </header>
 
     <div class="main">
-      <div class="imgg">
-        <img src="" alt="image" />
+      <div class="img">
+        <img src="../../images/home logo.png" alt="">
       </div>
       <form id="myForm">
         <h1>LOGIN</h1>
-        <input
+        <div class="input-group">
+             <input
           type="tel"
           name="Phone"
           class="phone"
           id="Phone"
-          placeholder="Phone Number"
           required
         />
-        <input
+        <label for="">Phone Number</label>
+        </div>
+        <div class="input-group">
+            <input
           type="password"
           name="Password"
           id="Password"
           class="password"
-          placeholder="Password"
           required
         />
+        <label for="">Password</label>
+        </div>
         <button class="btn-submit" id="btn-sub">Submit</button>
         <h4 id="message"></h4>
       </form>
     </div>
-    <script src="../../JS/index.js"></script>
     <script src="../../JS/login.js"></script>
   </body>
 </html>
