@@ -13,26 +13,6 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
-.navbar {
-  background-color: rebeccapurple;
-  position: fixed;
-  display: flex;
-  align-items: center; 
-  width: 100%;
-  height: 60px;
-}
-
-.navbar-brand a {
-  text-decoration: none;
-  color: whitesmoke;
-  font-size: 2rem;
-  padding-left: 8rem; 
-  font-weight: 800;
-}
-
-.navbar-brand a span {
-  font-size: 2.3rem;
-}
 
 .main {
   display: flex;

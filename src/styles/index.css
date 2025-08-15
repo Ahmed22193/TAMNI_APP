@@ -3,24 +3,24 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: 'Barlow', Arial, sans-serif;
-    width: 90%;
+    
     margin: auto;
     background-color: #f9f9f9; /* لون فاتح بدلاً من الصورة */
 }
-
 /* ===== Layout ===== */
 .parent {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding: 40px 0;
+    margin-top: 40px;
+    padding: 40px 30px;
 }
-
 /* ===== Caption Section ===== */
 .caption {
     flex: 1;
@@ -40,7 +40,6 @@ body {
     padding: 10px 30px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 /* ===== Buttons ===== */
 .btn {
     width: 230px;
@@ -110,13 +109,133 @@ body {
 
 /* تأثير دخول الرسالة */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateX(-80px); }
-    to { opacity: 1; transform: translateX(0); }
+    from { opacity: 0; transform: translateY(-110px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 
+/* ===== Sections General Style ===== */
+.section {
+    animation: fadeIn 0.5s ease-out;
+    padding: 80px 30px;
+    margin: 40px 0;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-/* ===== Responsive Design ===== */
+.section:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Titles */
+.section h2 {
+    font-size: 2.2rem;
+    color: #1E1A4D;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.section h2 span {
+    color: #6a5acd;
+    font-family: "Satisfy", cursive;
+}
+
+/* About Section */
+.about {
+    background: linear-gradient(135deg, #f8f8ff, #f0f0ff);
+}
+.about p {
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1.8;
+    color: #444;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Services */
+.services {
+    background: linear-gradient(135deg, #fdfbff, #f6f4ff);
+}
+.service-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+.service {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+.service h3 {
+    color: #6a5acd;
+    margin-bottom: 12px;
+}
+
+/* How it works */
+.how-it-works ol {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    max-width: 800px;
+    margin: auto;
+    padding-left: 20px;
+}
+
+/* Testimonials */
+.testimonials {
+    background: linear-gradient(135deg, #fafaff, #f4f2ff);
+}
+.testimonials blockquote {
+    background: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    font-style: italic;
+    max-width: 700px;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+.testimonials blockquote::before {
+    content: "“";
+    font-size: 2rem;
+    color: #6a5acd;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+}
+
+/* Contact */
+.contact {
+    background: linear-gradient(135deg, #f9f9ff, #f3f3ff);
+}
+.contact p {
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 8px 0;
+}
+.contact p:first-child {
+    color: #6a5acd;
+}
+
+
+/* --------------------------------------- */
+
+
+
+
+
 @media (max-width: 900px) {
     .parent {
         flex-direction: column-reverse;
@@ -132,5 +251,8 @@ body {
     .btn {
         width: 100%;
         max-width: 300px;
+    }
+    .how-it-works ol{
+        flex-direction: column;
     }
 }
