@@ -1,6 +1,5 @@
 /* الخلفية لل body */
 body {
-  background: url('../images/bgHome.jpg');
   min-height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;

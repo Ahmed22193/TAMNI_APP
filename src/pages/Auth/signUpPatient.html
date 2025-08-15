@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up - Patient</title>
-    
     <link rel="stylesheet" href="../../styles/main.style.css" />
+    <link rel="stylesheet" href="../../styles/register.style.css" />
   </head>
   <body>
     <header class="navbar">
@@ -17,7 +17,61 @@
         <!-- هحط هنا اللينكات بالجافاسكريت علي حسب نوع المستخدم -->
       </ul>
     </header>
-    <h1>Sign Up - Patient</h1>
+
+    <div class="main-signUp"> 
+        <h2 class="header">Create Patient Profile</h2>
+        <form id="myForm">
+            <div class="left-side">
+                <input placeholder="First Name" type="text" class="Input" id="firstName" name="firstName" required>
+                <input placeholder="Middle Name" type="text" class="Input" id="middleName" name="middleName" required>
+                <input placeholder="Last Name" type="text" class="Input" id="lastName" name="lastName" required>
+                <div class="gender">
+                    <label for="MALE">MALE : </label><input type="radio" name="gender" id="MALE" value="MALE" required>
+                    <label for="FEMALE">FEMALE : </label><input type="radio" name="gender" id="FEMALE" value="FEMALE" required>
+                </div>
+                <select name="government" class="government" id="government" dir="rtl">
+                    <option value="" selected>المحافظة : اختياري</option>
+                    <option value="cairo">القاهرة</option>
+                    <option value="alexandria">الإسكندرية</option>
+                    <option value="giza">الجيزة</option>
+                    <option value="gharbiya">الغربية</option>
+                    <option value="dakahlia">الدقهلية</option>
+                    <option value="menofia">المنوفية</option>
+                    <option value="qalyubia">القليوبية</option>
+                    <option value="beheira">البحيرة</option>
+                    <option value="ismailia">الإسماعيلية</option>
+                    <option value="suez">السويس</option>
+                    <option value="sohag">سوهاج</option>
+                    <option value="asyut">أسيوط</option>
+                    <option value="luxor">الأقصر</option>
+                    <option value="redsea">البحر الأحمر</option>
+                    <option value="redsea">البحر الأحمر</option>
+                    <option value="portsaid">بورسعيد</option>
+                    <option value="damietta">دمياط</option>
+                    <option value="kafr_el_sheikh">كفر الشيخ</option>
+                    <option value="minya">المنيا</option>
+                    <option value="fayoum">الفيوم</option>
+                    <option value="bani_suef">بني سويف</option>
+                    <option value="new_valley">الوادي الجديد</option>
+                    <option value="sharqia">الشرقية</option>
+                    <option value="qena">قنا</option>
+                    <option value="matrouh">مطروح</option>
+                    <option value="north_sinai">شمال سيناء</option>
+                    <option value="south_sinai">جنوب سيناء</option>
+                </select>
+            </div>
+            <div class="right-side">
+                <input placeholder="Phone" type="tel" class="register Input" id="phone" name="phone" required>
+                <input placeholder="Password" type="password" minlength="8" class="register Input" id="password" name="password" required>
+                <input placeholder="Confirm Password" type="password" minlength="8" class="register Input" id="confirmPassword" name="confirmPassword" required>
+                <p id="error-message" class="error-message"></p>
+                <button class="submit" id="submitBtn" type="submit">Sign Up</button>
+
+                <h3 id="api-message" class="api-message"></h3>
+            </div>
+        </form>
+    </div>
     <script src="../../JS/index.js"></script>
+    <script src="../../JS/signUpPatient.js"></script>
   </body>
 </html>
