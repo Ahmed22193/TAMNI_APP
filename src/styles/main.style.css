@@ -4,26 +4,26 @@
     margin: 0;
     box-sizing: border-box;
 }
-
-
 .navbar {
     width: 90%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background-color: rgba(0, 19, 105, 0.753);
+    justify-content: space-between;
+    padding: 15px 30px !important;
+    background-color: rgba(0, 19, 105, 0.753)!important;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: fixed;
     left: 80px;
     top: 10px;
     border-radius: 10px;
     z-index: 1000;
+    height: 75px!important;
 }
-
 .navbar-brand {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    margin-bottom: auto;
+    padding: 10px 20px !important;
 }
 .navbar-brand a{
     text-decoration: none;
@@ -38,18 +38,20 @@
 
 .navbar-links {
     display: flex;
+    align-content: center;
     list-style: none;
+    padding: 0 !important;
 }
 
 .navbar-links li {
-    margin: 10px;
+    margin: 10px !important;
 }
 
 .navbar .navbar-links .a_link {
     text-decoration: none;
     color:white;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 5px 10px !important;
     font-family: 'Barlow', sans-serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
@@ -58,20 +60,102 @@
     color: rgb(7, 156, 249);
     border-bottom: 2px solid rgb(7, 156, 249);
 }
-@media (max-width: 1120px){
+.navbar-links .dropdown {
+  position: relative;
+}
+.navbar-links .dropdown-menu {
+  display: none;
+  position: absolute;
+  background: #222;
+  padding: 10px;
+  list-style: none;
+  border-radius: 6px;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  z-index: 100;
+}
+
+.navbar-links .dropdown-menu li {
+  margin: 5px 0;
+}
+
+.navbar-links .dropdown-menu .a_link {
+  color: white;
+  display: block;
+}
+
+.navbar-links .dropdown:hover .dropdown-menu {
+  display: block;
+}
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+
+@media (max-width: 1120px) {
     .navbar {
         left: 10px;
         margin: 10px auto;
         width: 95%;
-        flex-direction: column;
+        flex-direction: row;
+        height: auto; /* علشان ياخد الطول المناسب */
+        padding: 5px;
+        transition: 0.3s ease;
     }
+    .navbar-links {
+      flex-direction: column; /* يخليهم عموديين مش جنب بعض */
+      width: 100%;
+    }
+
     .navbar-links li {
-        margin: 5px;
-        font-size: 12px;
+        margin: 8px 0;
+        font-size: 14px;
     }
-    .navbar-brand a{
-        margin-bottom: 10px;
+
+    .navbar-links .dropdown-menu {
+        position: static; /* يلغي الـ absolute */
+        width: 100%;
+        background: rgba(0, 19, 105, 0.9);
+        margin-top: 5px;
+        text-align: center;
     }
+
+    .navbar-links .dropdown-menu li {
+      margin: 10px 0;  
+    }
+    .menu-toggle {
+    display: block;
+    margin-right: 15px;
+  }
+
+  .navbar-links {
+    max-height: 0; /* افتراضياً مقفولة */
+    opacity: 0.4;
+    overflow: hidden;
+    flex-direction: column;
+    width: 100% !important;
+    background: rgba(33, 49, 94, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 9px;
+    border-radius: 8px;
+    transition: 0.5s ease; /* انيميشن ناعم */
+  }
+  .navbar-links li {
+    margin: 12px 0;
+    text-align: center;
+  }
+
+  .navbar-links.active {
+    max-height: 500px; /* قيمة كبيرة تكفي كل اللينكات */
+    padding: 10px 0;
+    opacity: 1;
+  }
 }
 
 
@@ -81,7 +165,7 @@
   padding: 40px 20px 20px;
   font-family: Arial, sans-serif;
 }
-
+ 
 .footer-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

@@ -8,10 +8,14 @@ function handleSubmit(event) {
   const phone = document.getElementById("Phone").value.trim();
   const password = document.getElementById("Password").value.trim();
   const message = document.getElementById("message");
+
+
   const formData = {
     phone,
     password,
   };
+
+
   fetch("https://tamni.vercel.app/api/auth/login", {
     method: "POST",
     headers: {
@@ -50,9 +54,3 @@ function handleSubmit(event) {
     });
   console.log("Form Data:", formData);
 }
-
-
-
-
-
-

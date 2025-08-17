@@ -69,8 +69,7 @@ function renderNavbar() {
     if (userData?.role === "ADMIN") {
       linksHtml = `
         <li><a class="a_link" href="/index.html">Home</a></li>
-        <li><a class="a_link" href="/src/pages/admin/GetAllDoctors.html">Doctors</a></li>
-        <li><a class="a_link" href="/src/pages/admin/AllPatients.html">Patients</a></li>
+        <li><a class="a_link" href="/src/pages/admin/AllUsers.html">Users</a></li>
         <li><a class="a_link" href="/src/pages/admin/AllConsultations.html">Consultations</a></li>
         <li><a class="a_link" href="/src/pages/admin/status.html">Status</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
@@ -102,3 +101,10 @@ function renderNavbar() {
 }
 checkTokenExpiry();
 renderNavbar();
+
+const menuToggle = document.getElementById("menuToggle");
+const navbarLinks = document.getElementById("navbarLinks");
+
+menuToggle.addEventListener("click", () => {
+  navbarLinks.classList.toggle("active");
+});
