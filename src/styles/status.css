@@ -1,0 +1,78 @@
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background: #f9f9f9ab;
+      color: rgb(73, 70, 70);
+      padding: 20px;
+      margin-top:80px;
+
+    }
+
+    /* Custom Cards */
+    .card-custom {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: ease 0.55s;
+      width:80%;
+      
+    }
+    .card-custom:hover {
+      transform: scale(1.1);
+    }
+    .card-custom h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: rgb(73, 70, 70);
+    }
+    .card-custom p {
+      font-size: 22px;
+      font-weight: bold;
+      color: #7b4cf3;
+    }
+
+    /* Section Box */
+    .section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
+      width:80%;
+    }
+    .section h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: rgb(73, 70, 70);
+      text-align: center;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 15px 25px;
+      text-align: center;
+      transition: ease 0.55s;
+    }
+    .stat:hover {
+      transform: scale(1.1);
+    }
+    .stat h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: rgb(73, 70, 70);
+    }
+    .stat p {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7b4cf3;
+    }
+  
