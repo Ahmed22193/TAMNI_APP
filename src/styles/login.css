@@ -13,23 +13,53 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
+.navbar {
+  background-color: rebeccapurple;
+  position: fixed;
+  display: flex;
+  align-items: center; 
+  width: 100%;
+  height: 60px;
+  z-index: 9999;
+}
+
+.navbar-brand a {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 2rem;
+  padding-left: 8rem; 
+  font-weight: 800;
+}
+
+.navbar-brand a span {
+  font-size: 2.3rem;
+}
 
 .main {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
+  background: #2A7B9B;
+background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, 
+rgba(173, 191, 222, 0.81) 0%, rgba(245, 245, 250, 1) 60%);
 }
 
 .main .img {
   width: 100%;
 }
 
-.main .img img {
+.main .img .imgg {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  margin-top: 1rem;
+  margin: 1rem auto;
+}
+
+.main .img .imgg dotlottie-wc {
+  position: relative;
+  left: 100px;
 }
 
 form {
@@ -42,6 +72,8 @@ form {
   border-radius: 4%; 
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.145); 
   padding: 1rem;
+  position: relative;
+  right: 70px;
 }
 
 form h1 {
@@ -62,7 +94,7 @@ form h1 {
   padding: 10px;
   font-size: 16px;
   border-radius: 20px;
-}
+} 
 
 .input-group label {
   position: absolute;
@@ -114,18 +146,25 @@ form h4 {
     width: 100%;
   }
 
-  .main .img img {
+  .main .img .imgg {
     width: 100%;
-    height: 100%;
+    height: 99%;
     object-fit: contain;
     margin-top: 2rem;
   }
 
+  .main .img .imgg dotlottie-wc {
+  position: relative;
+  left: 5px;
+}
+
   form {
      margin: 20px auto;
-    width: 85%; 
+     width: 85%;
+     right: -2px; 
   }
 }
+
 
 @media (min-width: 768px) and (max-width: 991px) {
     main {
@@ -136,15 +175,21 @@ form h4 {
     width: 100%;
   }
 
-  .main .img img {
+  .main .img .imgg {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
+    .main .img .imgg dotlottie-wc {
+  position: relative;
+  left: 5px;
+}
+
   form {
     width: 60%;
     margin: 10rem;
+    right: 5px;
   }
 
 }
@@ -157,11 +202,16 @@ form h4 {
     width: 100%;
   }
 
-  .main .img img {
+  .main .img .imgg {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+
+    .main .img .imgg dotlottie-wc {
+  position: relative;
+  left: 5px;
+}
 
   form {
     width: 65%;
@@ -170,6 +220,7 @@ form h4 {
     left: 30px;
   }
 }
+
 
 @media (min-width: 1100px) {
   .main {
@@ -182,12 +233,17 @@ form h4 {
     height: 100%;
   }
 
-  .main .img img {
+  .main .img .imgg {
     width: 100%;
-    height: 120%;
+    height: 100%;
     object-fit: cover;
     margin-top: 0;
   }
+
+    .main .img .imgg dotlottie-wc {
+  position: relative;
+  left: 5px;
+}
 
   form {
     width: 40%;
