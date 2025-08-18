@@ -1,43 +1,61 @@
+function activeReload() {
+  const loadingOverlay = document.createElement("div");
+  loadingOverlay.className = "loading-overlay";
+  loadingOverlay.innerHTML = `
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    `;
+  document.body.appendChild(loadingOverlay);
+}
+activeReload();
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const API_URL = "https://tamni.vercel.app/api/admin/getStats";
-    const TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODljZmQ2NDE4YmEzN2ZhYzMyMmI2N2MiLCJ1c2VyVHlwZSI6IkFETUlOIiwicm9sZSI6IkFETUlOIiwibmFtZSI6IkFobWVkIEhtYWRhIiwiaWF0IjoxNzU1NDYxNzE3LCJleHAiOjE3NTU1NDgxMTd9._9UAxlg4zvyUTFEUH-JPKrqKZ3XncNVrQlpwUYKNtKA";
+document.addEventListener("DOMContentLoaded", () => {
+  const API_URL = "https://tamni.vercel.app/api/admin/getStats";
+  const TOKEN = localStorage.getItem("token");
+  console.log(TOKEN);
 
-    // دالة تجيب الداتا من API
-    async function loadStats() {
-      try {
-        const response = await fetch(API_URL, {
-          headers: {
-            "Authorization": TOKEN,
-            "Content-Type": "application/json"
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error("حدث خطأ أثناء الاتصال بالـ API");
-        }
-
-        const data = await response.json();
-        console.log("API Response:", data);
-
-      
-        document.getElementById("allUsers").innerText = data.allUsers || 0;
-        document.getElementById("consultations").innerText = data.consultations || 0;
-
-        document.getElementById("doctors").innerText = data.doctors || 0;
-        document.getElementById("patients").innerText = data.patients || 0;
-        document.getElementById("acceptedDoctors").innerText = data.acceptedDoctors || 0;
-        document.getElementById("waitingDoctors").innerText = data.waitingDoctors || 0;
-
-        document.getElementById("pending").innerText = data.pendingConsultations || 0;
-        document.getElementById("accepted").innerText = data.acceptedConsultations || 0;
-        document.getElementById("paid").innerText = data.paidConsultations || 0;
-        document.getElementById("completed").innerText = data.completedConsultations || 0;
-
-      } catch (error) {
-        console.error("Error:", error);
+  // دالة تجيب الداتا من API
+  async function loadStats() {
+    try {
+      const response = await fetch(API_URL, {
+        headers: {
+          authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("حدث خطأ أثناء الاتصال بالـ API");
       }
-    }
+      const data = await response.json();
+      const users = data.data.users || [];
+      const consultations = data.data.consultations || [];
 
-    loadStats();
-  });
+      document.getElementById("allUsers").innerText = users.totalUsers || 0;
+      document.getElementById("consultations").innerText =
+        consultations.totalConsultations || 0;
+
+      document.getElementById("doctors").innerText = users.doctors || 0;
+      document.getElementById("patients").innerText = users.patients || 0;
+      document.getElementById("acceptedDoctors").innerText =
+        users.acceptedDoctors || 0;
+      document.getElementById("waitingDoctors").innerText =
+        users.unacceptedDoctors || 0;
+
+      document.getElementById("pending").innerText = consultations.PENDING || 0;
+      document.getElementById("accepted").innerText =
+        consultations.ACCEPTED || 0;
+      document.getElementById("paid").innerText = consultations.PAID || 0;
+      document.getElementById("completed").innerText =
+        consultations.COMPLETED || 0;
+      document.getElementById("rejected").innerText =
+        consultations.REJECTED || 0;
+
+      document.querySelector(".loading-overlay").remove();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  loadStats();
+});

@@ -24,83 +24,113 @@
         <!-- اللينكات هتضاف هنا بالجافا سكريبت -->
       </ul>
     </header>
-  <div class="container  mb-4">
-    <div class="row justify-content-center   g-4">
-      <div class="col-md-5">
-        <div class="card-custom">
-          <h3>All-User</h3>
-          <p id="allUsers">0</p>
+    <div class="container my-5">
+      <!-- Summary Cards -->
+      <div class="row g-4 mb-5 text-center">
+        <div class="col-md-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">All Users</h5>
+              <p class="display-6 fw-bold text-primary" id="allUsers">0</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">All Consultations</h5>
+              <p class="display-6 fw-bold text-success" id="consultations">0</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-5 ">
-        <div class="card-custom">
-          <h3>Consultation</h3>
-          <p id="consultations">0</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  
-  <div class="container section">
-    <h2>USERS</h2>
-    <div class="row g-3 justify-content-center">
-      <div class="col-sm-6 col-md-3">
-        <div class="stat">
-          <h4>Doctors</h4>
-          <p id="doctors">0</p>
+      <!-- Users Section -->
+      <div class="section mb-5">
+        <h3 class="mb-4 text-center">Users</h3>
+        <div class="row g-4 text-center">
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-primary shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Doctors</h5>
+                <p class="fs-4 fw-bold text-primary" id="doctors">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-success shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Patients</h5>
+                <p class="fs-4 fw-bold text-success" id="patients">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-info shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Accepted Doctors</h5>
+                <p class="fs-4 fw-bold text-info" id="acceptedDoctors">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-warning shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Waiting Doctors</h5>
+                <p class="fs-4 fw-bold text-warning" id="waitingDoctors">0</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="stat">
-          <h4>Patients</h4>
-          <p id="patients">0</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="stat">
-          <h4>Accepted Doctors</h4>
-          <p id="acceptedDoctors">0</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="stat">
-          <h4>Waiting Doctors</h4>
-          <p id="waitingDoctors">0</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="container section">
-    <h2>CONSULTATION</h2>
-    <div class="row g-3 justify-content-center ">
-      <div class="col-sm-6 col-md-3">
-        <div class="stat">
-          <h4>Pending</h4>
-          <p id="pending">0</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="stat">
-          <h4>Accepted</h4>
-          <p id="accepted">0</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="stat">
-          <h4>Paid</h4>
-          <p id="paid">0</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-3">
-        <div class="stat">
-          <h4>Completed</h4>
-          <p id="completed">0</p>
+      <!-- Consultations Section -->
+      <div class="section">
+        <h3 class="mb-4 text-center">Consultations</h3>
+        <div class="row g-4 text-center">
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-warning shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Pending</h5>
+                <p class="fs-4 fw-bold text-warning" id="pending">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-success shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Accepted</h5>
+                <p class="fs-4 fw-bold text-success" id="accepted">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-info shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Paid</h5>
+                <p class="fs-4 fw-bold text-info" id="paid">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-primary shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Completed</h5>
+                <p class="fs-4 fw-bold text-primary" id="completed">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="card border-danger shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Rejected</h5>
+                <p class="fs-4 fw-bold text-danger" id="rejected">0</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../JS/index.js"></script>

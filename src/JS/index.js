@@ -85,7 +85,7 @@ function renderNavbar() {
       linksHtml = `
         <li><a class="a_link" href="/index.html">Home</a></li>
         <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
-        <li><a class="a_link" href="/src/pages/patient/MyConsultations.html">Consultations</a></li>
+        <li><a class="a_link" href="/src/pages/patient/MyCosultations.html">Consultations</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     }
