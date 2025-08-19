@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       });
       if (!response.ok) {
+        document.querySelector(".loading-overlay").remove();
         throw new Error("حدث خطأ أثناء الاتصال بالـ API");
       }
       const data = await response.json();
@@ -54,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(".loading-overlay").remove();
     } catch (error) {
       console.error("Error:", error);
+      document.querySelector(".loading-overlay").remove();
     }
   }
 

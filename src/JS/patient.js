@@ -1,3 +1,14 @@
+function activeReload() {
+  const loadingOverlay = document.createElement("div");
+  loadingOverlay.className = "loading-overlay";
+  loadingOverlay.innerHTML = `
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    `;
+  document.body.appendChild(loadingOverlay);
+}
+activeReload();
 let consultations = []; // نخزن البيانات
 
 function statusIcon(status) {
@@ -53,38 +64,52 @@ function renderConsultations(data) {
     const actionsDiv = document.createElement("div");
     actionsDiv.className =
       "d-flex justify-content-center gap-2 mt-3 card-actions";
-
     const status = (item.status || "").toLowerCase();
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "btn btn-sm btn-danger btn-delete";
     deleteBtn.textContent = "Delete";
+    deleteBtn.onclick = () => {
+      deleteConsultation(item._id);
+    };
 
     if (status === "rejected" || status === "pending") {
       if (status === "pending") {
         const editBtn = document.createElement("button");
-        editBtn.className = "btn btn-sm btn-warning";
+        editBtn.className = "editBtn btn btn-sm btn-warning";
         editBtn.textContent = "edit";
+        editBtn.onclick = () => {
+          EditConsultation(item._id);
+        };
         actionsDiv.appendChild(editBtn);
       }
       //delete
-      deleteBtn.onclick = () => {
-        consultations = consultations.filter((c) => c._id !== item._id);
-        renderConsultations(consultations);
-      };
+
       actionsDiv.appendChild(deleteBtn);
     }
     if (status === "done" || status === "completed") {
       const reportBtn = document.createElement("button");
       reportBtn.className = "btn btn-sm btn-primary btn-report";
       reportBtn.textContent = " View Report";
+      reportBtn.onclick = () => {
+        viewReport(item._id);
+      };
       actionsDiv.appendChild(reportBtn);
     }
     if (status === "accepted") {
       const payBtn = document.createElement("button");
       payBtn.className = "btn btn-sm btn-success btn-pay";
       payBtn.textContent = "Pay";
+      payBtn.onclick = () => {
+        payForConsultation(item._id);
+      };
       actionsDiv.appendChild(payBtn);
+    }
+    if (status === "paid") {
+      const payedBtn = document.createElement("button");
+      payedBtn.className = "btn btn-sm btn-secondary";
+      payedBtn.textContent = "waiting report";
+      actionsDiv.appendChild(payedBtn);
     }
     card.appendChild(header);
     card.appendChild(body);
@@ -123,7 +148,7 @@ fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
   .then((res) => res.json())
   .then((data) => {
     console.log("API Response:", data.data);
-
+    document.querySelector(".loading-overlay").remove();
     if (data.message && !data.data) {
       document.getElementById(
         "cards-container"
@@ -136,8 +161,25 @@ fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
     renderConsultations(consultations);
   })
   .catch((err) => {
+    document.querySelector(".loading-overlay").remove();
     console.error("API Error:", err);
     document.getElementById(
       "cards-container"
     ).innerHTML = `<div class='alert alert-danger text-center'>فشل الاتصال بالخادم.</div>`;
   });
+
+function EditConsultation(id) {
+  alert("Edit consultation with ID: " + id);
+}
+
+function viewReport(id) {
+  alert("View report for consultation with ID: " + id);
+}
+
+function payForConsultation(id) {
+  alert("Pay for consultation with ID: " + id);
+}
+
+function deleteConsultation(id) {
+  alert("Delete consultation with ID: " + id);
+}
