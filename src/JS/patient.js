@@ -169,7 +169,7 @@ fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
   });
 
 function EditConsultation(id) {
-  alert("Edit consultation with ID: " + id);
+  window.location.href = `updateConsultation.html?id=${id}`;
 }
 
 function viewReport(id) {

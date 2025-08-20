@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>create Consultations</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../styles/main.style.css" />
+    <link rel="stylesheet" href="../../styles/createConsultation.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-brand">
+        <a href="#">TAMNI</a>
+      </div>
+
+      <!-- زرار الموبايل -->
+      <button class="menu-toggle" id="menuToggle">☰</button>
+
+      <ul class="navbar-links" id="navbarLinks">
+        <!-- اللينكات هتضاف هنا بالجافا سكريبت -->
+      </ul>
+    </header>
+
+    <div class="form-box" id="consultationForm">
+      <h2 class="form-title">Consultation Form</h2>
+      <form id="consultForm">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Main Complaint</label>
+            <input type="text" class="form-control" id="mainComplaint" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Current Symptoms</label>
+            <input type="text" class="form-control" id="currentSymptoms" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Duration of symptoms</label>
+            <input type="text" class="form-control" id="duration" />
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Age</label>
+            <input
+              type="number"
+              class="form-control"
+              id="age"
+              min="0"
+              max="120"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Response type</label>
+            <select class="form-select" id="responseType">
+              <option>WRITTEN</option>
+              <option>PHONE</option>
+              <option>VIDEO</option>
+              <option>CLINIC_VISIT</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Upload Attachment</label>
+            <input type="file" class="form-control" id="attachment" multiple />
+          </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <h5 class="mb-3">
+          Medical History <small>(Choose your Symptoms)</small>
+        </h5>
+        <div class="checkbox-grid">
+          <div>
+            <input type="checkbox" value="High blood pressure" /> High blood
+            pressure
+          </div>
+          <div>
+            <input type="checkbox" value="Liver problems" /> Liver problems
+          </div>
+          <div><input type="checkbox" value="Eye problems" /> Eye problems</div>
+          <div>
+            <input type="checkbox" value="Bone or joint problems" /> Bone or
+            joint problems
+          </div>
+          <div>
+            <input type="checkbox" value="Mental health conditions" /> Mental
+            health conditions
+          </div>
+          <div>
+            <input type="checkbox" value="Hearing problems" /> Hearing problems
+          </div>
+          <div><input type="checkbox" value="Cancer" /> Cancer</div>
+          <div>
+            <input type="checkbox" value="Chronic skin conditions" /> Chronic
+            skin conditions
+          </div>
+          <div>
+            <input type="checkbox" value="Thyroid problems" /> Thyroid problems
+          </div>
+          <div>
+            <input type="checkbox" value="Kidney problems" /> Kidney problems
+          </div>
+          <div>
+            <input type="checkbox" value="Blood disorders" /> Blood disorders
+          </div>
+          <div><input type="checkbox" value="Diabetes" /> Diabetes</div>
+          <div>
+            <input type="checkbox" value="Autoimmune diseases" /> Autoimmune
+            diseases
+          </div>
+          <div>
+            <input type="checkbox" value="Brain or nerve disorders" /> Brain or
+            nerve disorders
+          </div>
+        </div>
+
+        <div class="text-end mt-4">
+          <button type="submit" class="btn btn-primary px-4">Send</button>
+        </div>
+      </form>
+      <h4 id="api_message"></h4>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../JS/index.js"></script>
+    <script src="../../JS/createConsultation.js"></script>
+  </body>
+</html>
