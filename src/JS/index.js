@@ -69,8 +69,8 @@ function renderNavbar() {
     if (userData?.role === "ADMIN") {
       linksHtml = `
         <li><a class="a_link" href="/index.html">Home</a></li>
+        <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
         <li><a class="a_link" href="/src/pages/admin/AllUsers.html">Users</a></li>
-        <li><a class="a_link" href="/src/pages/admin/AllConsultations.html">Consultations</a></li>
         <li><a class="a_link" href="/src/pages/admin/status.html">Status</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
