@@ -210,12 +210,6 @@ function payForConsultation(id) {
     });
 }
 
-/**
- * إرسال طلب دفع إلى API الدفع الخاص بالاستشارات
- * @param {string} consultationId - رقم الاستشارة المطلوب دفعها
- * @param {string} token - التوكين الخاص بالمستخدم
- * @returns {Promise<object>} نتيجة الدفع من السيرفر
- */
 async function payConsultation(consultationId, token) {
   try {
     const response = await fetch('https://tamni.vercel.app/api/patient/PAID', {
@@ -256,12 +250,6 @@ function deleteConsultation(id) {
     });
 }
 
-/**
- * إرسال طلب حذف إلى API حذف الاستشارة
- * @param {string} consultationId - رقم الاستشارة المطلوب حذفها
- * @param {string} token - التوكين الخاص بالمستخدم
- * @returns {Promise<object>} نتيجة الحذف من السيرفر
- */
 async function deleteConsultationApi(consultationId, token) {
   try {
     const response = await fetch('https://tamni.vercel.app/api/patient/deleteConsultation', {
