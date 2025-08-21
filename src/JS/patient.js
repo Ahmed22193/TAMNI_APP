@@ -35,6 +35,8 @@ function renderConsultations(data) {
     return;
   }
   data.forEach((item) => {
+    // تجاهل الاستشارات المحذوفة من العرض للمستخدم
+    if ((item.status || '').toLowerCase() === 'deleted') return;
     let fullName = `${item.doctor?.firstName || ""} ${
       item.doctor?.middleName || ""
     } ${item.doctor?.lastName || ""}`;
@@ -62,9 +64,24 @@ function renderConsultations(data) {
       <p class="mb-2 fw-semibold">${item.doctor?.specialest || ""}</p>`;
     // Actions
     const actionsDiv = document.createElement("div");
-    actionsDiv.className =
-      "d-flex justify-content-center gap-2 mt-3 card-actions";
+    actionsDiv.className = "d-flex justify-content-center gap-2 mt-3 card-actions";
     const status = (item.status || "").toLowerCase();
+
+    // دعم حالة الاستشارة المحذوفة
+    if (status === "deleted") {
+      // تظليل الكارت وتوضيح أنه محذوف
+      card.classList.add("bg-light", "border", "border-danger", "opacity-75");
+      const deletedMsg = document.createElement("div");
+      deletedMsg.className = "alert alert-danger text-center mb-0 py-2";
+      deletedMsg.textContent = "تم حذف هذه الاستشارة";
+      actionsDiv.appendChild(deletedMsg);
+      card.appendChild(header);
+      card.appendChild(body);
+      card.appendChild(actionsDiv);
+      slide.appendChild(card);
+      container.appendChild(slide);
+      return;
+    }
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "btn btn-sm btn-danger btn-delete";
@@ -84,7 +101,6 @@ function renderConsultations(data) {
         actionsDiv.appendChild(editBtn);
       }
       //delete
-
       actionsDiv.appendChild(deleteBtn);
     }
     if (status === "done" || status === "completed") {
@@ -176,10 +192,93 @@ function viewReport(id) {
   alert("View report for consultation with ID: " + id);
 }
 
+
+// تنفيذ الدفع عند الضغط على زر الدفع
 function payForConsultation(id) {
-  alert("Pay for consultation with ID: " + id);
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("يجب تسجيل الدخول أولاً!");
+    return;
+  }
+  payConsultation(id, token)
+    .then((data) => {
+      alert("تم الدفع بنجاح!\n" + (data.message || ""));
+      location.reload();
+    })
+    .catch((err) => {
+      alert("حدث خطأ أثناء الدفع: " + (err.message || err));
+    });
 }
 
+/**
+ * إرسال طلب دفع إلى API الدفع الخاص بالاستشارات
+ * @param {string} consultationId - رقم الاستشارة المطلوب دفعها
+ * @param {string} token - التوكين الخاص بالمستخدم
+ * @returns {Promise<object>} نتيجة الدفع من السيرفر
+ */
+async function payConsultation(consultationId, token) {
+  try {
+    const response = await fetch('https://tamni.vercel.app/api/patient/PAID', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ consultationId })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Payment failed');
+    }
+    return data;
+  } catch (error) {
+    console.error('Error in payConsultation:', error);
+    throw error;
+  }
+}
+
+
+// تنفيذ الحذف عند الضغط على زر الحذف
 function deleteConsultation(id) {
-  alert("Delete consultation with ID: " + id);
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("يجب تسجيل الدخول أولاً!");
+    return;
+  }
+  if (!confirm("هل أنت متأكد أنك تريد حذف الاستشارة؟")) return;
+  deleteConsultationApi(id, token)
+    .then((data) => {
+      alert("تم حذف الاستشارة بنجاح!\n" + (data.message || ""));
+      location.reload();
+    })
+    .catch((err) => {
+      alert("حدث خطأ أثناء الحذف: " + (err.message || err));
+    });
+}
+
+/**
+ * إرسال طلب حذف إلى API حذف الاستشارة
+ * @param {string} consultationId - رقم الاستشارة المطلوب حذفها
+ * @param {string} token - التوكين الخاص بالمستخدم
+ * @returns {Promise<object>} نتيجة الحذف من السيرفر
+ */
+async function deleteConsultationApi(consultationId, token) {
+  try {
+    const response = await fetch('https://tamni.vercel.app/api/patient/deleteConsultation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ consultationId })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Delete failed');
+    }
+    return data;
+  } catch (error) {
+    console.error('Error in deleteConsultationApi:', error);
+    throw error;
+  }
 }
