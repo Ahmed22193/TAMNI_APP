@@ -92,7 +92,7 @@ function renderConsultations(data) {
       reportBtn.className = "btn btn-sm btn-primary btn-report";
       reportBtn.textContent = " View Report";
       reportBtn.onclick = () => {
-        viewReport(item._id);
+        viewReport(item.report);
       };
       actionsDiv.appendChild(reportBtn);
     }
@@ -172,8 +172,12 @@ function EditConsultation(id) {
   window.location.href = `updateConsultation.html?id=${id}`;
 }
 
-function viewReport(id) {
-  alert("View report for consultation with ID: " + id);
+function viewReport(reportUrl) {
+  if (reportUrl) {
+    window.open(reportUrl, "_blank");
+  } else {
+    alert("No report available");
+  }
 }
 
 function payForConsultation(id) {

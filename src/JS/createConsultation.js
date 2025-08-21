@@ -4,7 +4,7 @@ mainComplaint = document.getElementById("mainComplaint");
 currentSymptoms = document.getElementById("currentSymptoms");
 duration = document.getElementById("duration");
 age = document.getElementById("age");
-type = document.getElementById("responseType"); 
+type = document.getElementById("responseType");
 const params = new URLSearchParams(window.location.search);
 
 document
@@ -33,16 +33,19 @@ document
     };
 
     let description = `
---- Consultation Form ---
-📝 Main Complaint: ${data.mainComplaint}
-🤒 Current Symptoms: ${data.currentSymptoms}
-⏳ Duration of Symptoms: ${data.duration}
+    ---------------------------------
 🎂 Age: ${data.age || "Not provided"}
-📞 Response Type: ${data.type}
+    ---------------------------------
+📝 Main Complaint: ${data.mainComplaint}
+    ---------------------------------
+🤒 Current Symptoms: ${data.currentSymptoms}
+    ---------------------------------
+⏳ Duration of Symptoms: ${data.duration}
+    ---------------------------------
 🏥 Medical History: ${
       data.medicalHistory.length ? data.medicalHistory.join(", ") : "None"
     }
----------------------------
+    ---------------------------------
 `;
 
     const formData = new FormData();
@@ -106,7 +109,7 @@ function saveConsultationInLocalStorage(data, consultationId, doctorId) {
   const { files, ...restData } = data;
 
   // أنشئ الكائن اللي هتخزّنه
-  const consultationInfo = { ...restData, consultationId ,doctorId};
+  const consultationInfo = { ...restData, consultationId, doctorId };
 
   // ضيف الكائن الجديد في المصفوفة
   consultationArr.push(consultationInfo);

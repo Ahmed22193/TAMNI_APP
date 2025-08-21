@@ -1,0 +1,38 @@
+.card-custom {
+        background-color: #f1f1f1;
+        border-radius: 15px;
+        padding: 20px;
+      }
+      .attachments a {
+        display: inline-block;
+        margin-right: 12px;
+        margin-bottom: 8px;
+        text-decoration: none;
+        color: #000;
+      }
+      .btn-check-icon {
+        background-color: rgba(255, 255, 0, 0.734);
+        border: none;
+        border-radius: 30%;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .btn-cross-icon {
+        background-color: rgba(255, 0, 0, 0.671);
+        border: none;
+        border-radius: 30%;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .text-purple {
+        color: #5a0066;
+      }
