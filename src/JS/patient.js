@@ -36,7 +36,7 @@ function renderConsultations(data) {
   }
   data.forEach((item) => {
     // تجاهل الاستشارات المحذوفة من العرض للمستخدم
-    if ((item.status || '').toLowerCase() === 'deleted') return;
+    if ((item.status || "").toLowerCase() === "deleted") return;
     let fullName = `${item.doctor?.firstName || ""} ${
       item.doctor?.middleName || ""
     } ${item.doctor?.lastName || ""}`;
@@ -64,7 +64,8 @@ function renderConsultations(data) {
       <p class="mb-2 fw-semibold">${item.doctor?.specialest || ""}</p>`;
     // Actions
     const actionsDiv = document.createElement("div");
-    actionsDiv.className = "d-flex justify-content-center gap-2 mt-3 card-actions";
+    actionsDiv.className =
+      "d-flex justify-content-center gap-2 mt-3 card-actions";
     const status = (item.status || "").toLowerCase();
 
     // دعم حالة الاستشارة المحذوفة
@@ -196,7 +197,6 @@ function viewReport(reportUrl) {
   }
 }
 
-
 // تنفيذ الدفع عند الضغط على زر الدفع
 function payForConsultation(id) {
   const token = localStorage.getItem("token");
@@ -216,25 +216,24 @@ function payForConsultation(id) {
 
 async function payConsultation(consultationId, token) {
   try {
-    const response = await fetch('https://tamni.vercel.app/api/patient/PAID', {
-      method: 'POST',
+    const response = await fetch("https://tamni.vercel.app/api/patient/PAID", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ consultationId })
+      body: JSON.stringify({ consultationId }),
     });
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.message || 'Payment failed');
+      throw new Error(data.message || "Payment failed");
     }
     return data;
   } catch (error) {
-    console.error('Error in payConsultation:', error);
+    console.error("Error in payConsultation:", error);
     throw error;
   }
 }
-
 
 // تنفيذ الحذف عند الضغط على زر الحذف
 function deleteConsultation(id) {
@@ -256,21 +255,24 @@ function deleteConsultation(id) {
 
 async function deleteConsultationApi(consultationId, token) {
   try {
-    const response = await fetch('https://tamni.vercel.app/api/patient/deleteConsultation', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ consultationId })
-    });
+    const response = await fetch(
+      "https://tamni.vercel.app/api/patient/deleteConsultation",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ consultationId }),
+      }
+    );
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.message || 'Delete failed');
+      throw new Error(data.message || "Delete failed");
     }
     return data;
   } catch (error) {
-    console.error('Error in deleteConsultationApi:', error);
+    console.error("Error in deleteConsultationApi:", error);
     throw error;
   }
 }
