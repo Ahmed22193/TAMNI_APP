@@ -4,7 +4,8 @@ mainComplaint = document.getElementById("mainComplaint");
 currentSymptoms = document.getElementById("currentSymptoms");
 duration = document.getElementById("duration");
 age = document.getElementById("age");
-type = document.getElementById("responseType");
+type = document.getElementById("responseType"); 
+const params = new URLSearchParams(window.location.search);
 
 document
   .getElementById("consultForm")
@@ -17,8 +18,8 @@ document
     btn.innerHTML = "sending...";
     btn.disabled = true;
 
-    const doctorId = "689cf3aa28f4bdf660a1bae2"; // Doctor ID ثابت مؤقتاً
-
+    const doctorId = params.get("doctorId");
+    console.log("Doctor ID from params:", doctorId);
     const data = {
       mainComplaint: mainComplaint.value,
       currentSymptoms: currentSymptoms.value,
@@ -73,7 +74,7 @@ document
       btn.innerHTML = "Send";
       btn.disabled = false;
       console.log("API Response:", result.data._id);
-      saveConsultationInLocalStorage(data, result.data._id);
+      saveConsultationInLocalStorage(data, result.data._id, doctorId);
     } catch (error) {
       console.error("Error:", error);
       btn.innerHTML = "Send";
@@ -98,14 +99,14 @@ function checkInputs() {
   return false;
 }
 
-function saveConsultationInLocalStorage(data, consultationId) {
+function saveConsultationInLocalStorage(data, consultationId, doctorId) {
   // لو فيه بيانات قديمة في localStorage رجّعها
   let consultationArr =
     JSON.parse(localStorage.getItem("consultationInfo")) || [];
   const { files, ...restData } = data;
 
   // أنشئ الكائن اللي هتخزّنه
-  const consultationInfo = { ...restData, consultationId };
+  const consultationInfo = { ...restData, consultationId ,doctorId};
 
   // ضيف الكائن الجديد في المصفوفة
   consultationArr.push(consultationInfo);

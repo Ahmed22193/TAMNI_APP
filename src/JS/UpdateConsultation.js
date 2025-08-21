@@ -6,6 +6,7 @@ duration = document.getElementById("duration");
 age = document.getElementById("age");
 type = document.getElementById("responseType");
 
+let doctorId = "";
 // دالة تجيب الـ id من البارام
 function getConsultationIdFromParams() {
   const params = new URLSearchParams(window.location.search);
@@ -28,6 +29,8 @@ function fillInputs() {
     duration.value = consult.duration || "";
     age.value = consult.age || "";
     type.value = consult.type || "";
+    doctorId = consult.doctorId || "";
+    console.log("Doctor ID from consultation:", doctorId);
   } else {
     console.log("❌ الاستشارة مش موجودة في localStorage");
   }
@@ -44,8 +47,6 @@ document
     let btn = document.querySelector("button[type=submit]");
     btn.innerHTML = "updating...";
     btn.disabled = true;
-
-    const doctorId = "689cf3aa28f4bdf660a1bae2"; // Doctor ID ثابت مؤقتاً
 
     const data = {
       mainComplaint: mainComplaint.value,
@@ -105,7 +106,7 @@ document
       btn.innerHTML = "update";
       btn.disabled = false;
       console.log("API Response:", result.data._id);
-      saveConsultationInLocalStorage(data, result.data._id);
+      saveConsultationInLocalStorage(data, result.data._id, doctorId);
     } catch (error) {
       console.error("Error:", error);
       btn.innerHTML = "update";
@@ -129,7 +130,7 @@ function checkInputs() {
   return false;
 }
 
-function saveConsultationInLocalStorage(data, consultationId) {
+function saveConsultationInLocalStorage(data, consultationId, doctorId) {
   // هات كل الاستشارات اللي متخزنة قبل كده
   let consultationArr =
     JSON.parse(localStorage.getItem("consultationInfo")) || [];
@@ -138,7 +139,7 @@ function saveConsultationInLocalStorage(data, consultationId) {
   const { files, ...restData } = data;
 
   // جهّز الكائن الجديد
-  const consultationInfo = { ...restData, consultationId };
+  const consultationInfo = { ...restData, consultationId, doctorId };
 
   // دور على الاستشارة القديمة بنفس الـ ID
   const existingIndex = consultationArr.findIndex(
