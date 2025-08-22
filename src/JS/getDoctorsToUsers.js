@@ -70,18 +70,18 @@ function cards(data) {
                   class="img-fluid rounded-start"
                   alt="Doctor"
                 />
-                <!-- أيقونة المفضلة -->
-                <div class="favorite position-absolute top-0 end-0 p-2">
-                  <button
-                    class="btn btn-light btn-sm border-0 shadow-sm"
-                    onclick="AddToFavorites('${doctor._id}')"
-                  >
-                    ♡
-                  </button>
-                </div>
               </div>
               <!-- بيانات الدكتور -->
               <div class="col-md-8">
+                <!-- أيقونة المفضلة -->
+                <div class="favorite position-absolute top-0 end-0 p-2">
+                  <button
+                    class="btn btn-outline-danger btn-sm border-0 shadow-sm"
+                    onclick="AddToFavorites('${doctor._id}')"
+                  >
+                    <i class="far fa-heart"></i>
+                  </button>
+                </div>
                 <div class="card-body">
                   <h5 class="text-purple card-title fw-bold">Dr: ${fullName}</h5>
                   <p class="card-text small text-muted mb-2">
@@ -118,9 +118,10 @@ function AddToFavorites(doctorId) {
   let findDoctorInLocalStorage = favorites.findIndex((e) => e._id == doctorId);
 
   if (findDoctorInLocalStorage !== -1) {
-    alert("doctor is already in favorites");
+    alert("doctor is already in favorites👉");
   } else {
     favorites.push(doctorData);
     localStorage.setItem("favorites", JSON.stringify(favorites));
+    alert("added to favorite successfully!🩺❤️");
   }
 }

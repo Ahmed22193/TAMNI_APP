@@ -16,27 +16,35 @@
     <link rel="stylesheet" href="../styles/Favroite.css" />
 </head>
 <body>
-     <header class="navbar">
-      <div class="navbar-brand">
-        <a href="#">TAMNI</a>
+  <header class="navbar">
+    <div class="navbar-brand">
+      <a href="#">TAMNI</a>
+    </div>
+
+    <!-- زرار الموبايل -->
+    <button class="menu-toggle" id="menuToggle">☰</button>
+
+    <ul class="navbar-links" id="navbarLinks">
+      <!-- اللينكات هتضاف هنا بالجافا سكريبت -->
+    </ul>
+  </header>
+
+    <div class="main container my-5">
+      <!-- الفلاتر -->
+      <div class="favorit_header my-5 text-center">
+        <h3>🩺 My Favorite Doctors 🩺</h3>        
       </div>
 
-      <!-- زرار الموبايل -->
-      <button class="menu-toggle" id="menuToggle">☰</button>
+      <!-- الكروت -->
+      <div
+        class="cards-container row row-cols-1 row-cols-md-2 g-4"
+        id="cardsContainer"
+      >
+        <!-- Card Example -->
 
-      <ul class="navbar-links" id="navbarLinks">
-        <!-- اللينكات هتضاف هنا بالجافا سكريبت -->
-
-      </ul>
-    </header>
-
-<div class="row" id="cardsContainer">
-    <!-- card will added by js -->
-              
-  </div>
-
-
-<!-- Bootstrap JS -->
+        <!-- تقدر تكرر الكارد بنفس الشكل -->
+      </div>
+    </div>
 
     <footer class="footer">
       <div class="footer-container">
@@ -74,11 +82,9 @@
         <p>© 2025 TAMNI. All rights reserved.</p>
       </div>
     </footer>
-    <div id="doctorsList"></div>
-  
-    <script src="../JS/index.js"></script>
-    <script src="../JS/Favroite.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../JS/index.js"></script>
+  <script src="../JS/Favroite.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </body>
 </html>
