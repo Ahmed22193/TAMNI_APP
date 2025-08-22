@@ -137,116 +137,158 @@ form h4 {
   cursor: pointer;
 }
 
+/* -------------------- الموبايل -------------------- */
 @media (max-width: 768px) {
-    main {
+  main {
     flex-direction: row;
     height: 100vh;
   }
-    .main .img {
+  .main .img {
     width: 100%;
   }
-
   .main .img .imgg {
     width: 100%;
     height: 99%;
     object-fit: contain;
     margin-top: 2rem;
   }
-
   .main .img .imgg dotlottie-wc {
-  position: relative;
-  left: 5px;
-}
-
+    position: relative;
+    left: 5px;
+  }
   form {
-     margin: 20px auto;
-     width: 85%;
-     right: -2px; 
+    margin: 20px auto;
+    width: 85%;
+    right: -2px; 
   }
 }
 
-
-@media (min-width: 768px) and (max-width: 991px) {
-    main {
+/* -------------------- تابلت -------------------- */
+@media (min-width: 769px) and (max-width: 991px) {
+  main {
     flex-direction: row;
     height: 100vh;
   }
-    .main .img {
+  .main .img {
     width: 100%;
   }
-
   .main .img .imgg {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-
-    .main .img .imgg dotlottie-wc {
-  position: relative;
-  left: 5px;
-}
-
+  .main .img .imgg dotlottie-wc {
+    position: relative;
+    left: 5px;
+  }
   form {
     width: 60%;
-    margin: 10rem;
+    margin: 5rem auto;
     right: 5px;
   }
-
 }
-@media (min-width: 1024px) and (max-width: 1366px) {
-    main {
+
+/* -------------------- لابتوب صغير -------------------- */
+@media (min-width: 992px) and (max-width: 1100px) {
+  main {
     flex-direction: row;
     height: 100vh;
   }
-    .main .img {
+  .main .img {
     width: 100%;
   }
-
   .main .img .imgg {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-
-    .main .img .imgg dotlottie-wc {
-  position: relative;
-  left: 5px;
+  .main .img .imgg dotlottie-wc {
+    position: relative;
+    left: 5px;
+  }
+  form {
+    width: 70%;
+    padding: 20px;
+    margin: 2rem auto;
+    left: 20px;
+  }
 }
 
+/* -------------------- لابتوب متوسط -------------------- */
+@media (min-width: 1101px) and (max-width: 1280px) {
+  main {
+    flex-direction: row;
+    height: 100vh;
+  }
+  .main .img {
+    width: 100%;
+  }
+  .main .img .imgg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .main .img .imgg dotlottie-wc {
+    position: relative;
+    left: 5px;
+  }
   form {
     width: 65%;
     padding: 20px;
-    margin: 10rem;
+    margin: 2rem auto;
     left: 30px;
   }
 }
 
-
-@media (min-width: 1100px) {
+/* -------------------- لابتوب كبير / ديسكتوب -------------------- */
+@media (min-width: 1281px) and (max-width: 1366px) {
   .main {
     flex-direction: row;
     height: 100vh;
   }
+  .main .img {
+    width: 50%;
+    height: 100%;    
+  }
+  .main .img .imgg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-top: 0;
+    margin-left: 2rem;
+  }
+  .main .img .imgg dotlottie-wc {
+    position: relative;
+    left: 5px;
+  }
+  form {
+    width: 50%;
+    margin: 6rem ;
+  }
+}
 
+/* -------------------- شاشات أكبر -------------------- */
+@media (min-width: 1367px) {
+  .main {
+    flex-direction: row;
+    height: 100vh;
+  }
   .main .img {
     width: 50%;
     height: 100%;
   }
-
   .main .img .imgg {
     width: 100%;
     height: 100%;
     object-fit: cover;
     margin-top: 0;
   }
-
-    .main .img .imgg dotlottie-wc {
-  position: relative;
-  left: 5px;
-}
-
+  .main .img .imgg dotlottie-wc {
+    position: relative;
+    left: 5px;
+  }
   form {
     width: 40%;
-    margin: 10rem;
+    margin: 8.5rem ;
   }
 }
