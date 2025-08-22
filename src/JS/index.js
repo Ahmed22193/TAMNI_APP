@@ -23,7 +23,7 @@ function parseJwt(token) {
 }
 
 function logout() {
-  const confirmLogout = confirm("Enter 'logout' to confirm logout");
+  const confirmLogout = confirm("Enter 'OK' to confirm logout");
   if (confirmLogout) {
     localStorage.removeItem("token");
     localStorage.removeItem("userData");

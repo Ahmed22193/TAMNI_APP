@@ -35,6 +35,24 @@
         <!-- اللينكات هتضاف هنا بالجافا سكريبت -->
       </ul>
     </header>
+    <div
+      class="search_Filters d-flex flex-wrap justify-content-center align-items-center gap-2 p-3 bg-primary-subtle rounded shadow-sm mb-3"
+    >
+      <h5 class="text-purple">Filter :</h5>
+      <select class="form-select w-50" id="Selected_filter">
+        <option value="">All Status of Consultations filter</option>
+        <option value="PENDING">WAITING consultations</option>
+        <option value="COMPLETED">COMPLETED consultations</option>
+        <option value="PAID">PAID consultations</option>
+        <option value="ACCEPTED">ACCEPTED consultations</option>
+      </select>
+      <button id="PENDING_FILTER" class="btn btn-2 btn-outline-primary">
+        PENDING
+      </button>
+      <button id="PAID_FILTER" class="btn btn-2 btn-outline-primary">
+        PAID
+      </button>
+    </div>
     <h1 class="text-center my-5 text-purple fs-4">Consultations Orders</h1>
 
     <div class="container" id="consultationsContainer">

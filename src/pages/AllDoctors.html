@@ -47,27 +47,64 @@
           placeholder="🔍 Search by Doctor name..."
         />
         <!-- Role Filter -->
-        <select class="form-select w-auto" id="Specialty_filter">
-          <option value="">Specialty</option>
-          <option value="AllUsers">All Users</option>
-          <option value="admin">Admin</option>
-          <option value="patients">Patients</option>
-          <option value="doctors">Doctors</option>
-          <option value="active_doctors">Active_Doctors</option>
-          <option value="waiting_doctors">Waiting_Doctors</option>
+        <select
+          name="specialization"
+          class="form-select w-auto"
+          id="Specialty_filter"
+        >
+          <option value="">specialization</option>
+          <option value="cardiology">أمراض القلب</option>
+          <option value="neurology">طب الأعصاب</option>
+          <option value="pediatrics">طب الأطفال</option>
+          <option value="radiology">الأشعة</option>
+          <option value="dermatology">طب الأمراض الجلدية</option>
+          <option value="orthopedics">جراحة العظام</option>
+          <option value="gynecology">أمراض النساء والتوليد</option>
+          <option value="psychiatry">الطب النفسي</option>
+          <option value="general_surgery">الجراحة العامة</option>
+          <option value="urology">جراحة المسالك البولية</option>
+          <option value="ophthalmology">طب العيون</option>
+          <option value="otorhinolaryngology">أنف وأذن وحنجرة</option>
+          <option value="endocrinology">الغدد الصماء</option>
+          <option value="nephrology">أمراض الكلى</option>
+          <option value="gastroenterology">أمراض الجهاز الهضمي</option>
+          <option value="pulmonology">أمراض الرئة</option>
+          <option value="hematology">أمراض الدم</option>
         </select>
-        <select class="form-select w-auto" id="governments_filter">
-          <option value="">governments</option>
-          <option value="AllUsers">All Users</option>
-          <option value="admin">Admin</option>
-          <option value="patients">Patients</option>
-          <option value="doctors">Doctors</option>
-          <option value="active_doctors">Active_Doctors</option>
-          <option value="waiting_doctors">Waiting_Doctors</option>
+        <select
+          name="government"
+          class="form-select w-auto"
+          id="governments_filter"
+        >
+          <option value="" selected>government</option>
+          <option value="cairo">القاهرة</option>
+          <option value="alexandria">الإسكندرية</option>
+          <option value="giza">الجيزة</option>
+          <option value="gharbiya">الغربية</option>
+          <option value="dakahlia">الدقهلية</option>
+          <option value="menofia">المنوفية</option>
+          <option value="qalyubia">القليوبية</option>
+          <option value="beheira">البحيرة</option>
+          <option value="ismailia">الإسماعيلية</option>
+          <option value="suez">السويس</option>
+          <option value="sohag">سوهاج</option>
+          <option value="asyut">أسيوط</option>
+          <option value="luxor">الأقصر</option>
+          <option value="redsea">البحر الأحمر</option>
+          <option value="redsea">البحر الأحمر</option>
+          <option value="portsaid">بورسعيد</option>
+          <option value="damietta">دمياط</option>
+          <option value="kafr_el_sheikh">كفر الشيخ</option>
+          <option value="minya">المنيا</option>
+          <option value="fayoum">الفيوم</option>
+          <option value="bani_suef">بني سويف</option>
+          <option value="new_valley">الوادي الجديد</option>
+          <option value="sharqia">الشرقية</option>
+          <option value="qena">قنا</option>
+          <option value="matrouh">مطروح</option>
+          <option value="north_sinai">شمال سيناء</option>
+          <option value="south_sinai">جنوب سيناء</option>
         </select>
-
-        <!-- Search Button -->
-        <button class="btn btn-primary" id="DoctorSearchBtn">Search</button>
       </div>
 
       <!-- الكروت -->

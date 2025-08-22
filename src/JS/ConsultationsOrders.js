@@ -21,6 +21,7 @@ function NoData() {
     </tr>
     `;
 }
+let filterData = [];
 const consultationsContainer = document.getElementById(
   "consultationsContainer"
 );
@@ -44,6 +45,7 @@ fetch("https://tamni.vercel.app/api/doctor/ConsultationsOrders", {
   .then((data) => {
     console.log("Fetched consultations orders:", data.data);
     displayConsultationOrders(data.data);
+    filterData.push(...data.data);
     document.querySelector(".loading-overlay").remove();
   })
   .catch((error) => {
@@ -244,3 +246,67 @@ function UploadReport(consultationId) {
     });
   }
 }
+
+/* ---------------- filter logic ------------- */
+
+let Selected_filter = document.getElementById("Selected_filter");
+let PENDING_FILTER = document.getElementById("PENDING_FILTER");
+let PAID_FILTER = document.getElementById("PAID_FILTER");
+
+Selected_filter.addEventListener("change", (e) => {
+  if (e.target.value === "PENDING") {
+    let newFilter = filterData.filter((e) => e.status == "PENDING");
+    if (newFilter.length === 0) {
+      NoData();
+    } else {
+      displayConsultationOrders(newFilter);
+    }
+    return;
+  } else if (e.target.value === "COMPLETED") {
+    let newFilter = filterData.filter((e) => e.status == "COMPLETED");
+    if (newFilter.length === 0) {
+      NoData();
+    } else {
+      displayConsultationOrders(newFilter);
+    }
+    return;
+  } else if (e.target.value === "PAID") {
+    let newFilter = filterData.filter((e) => e.status == "PAID");
+    if (newFilter.length === 0) {
+      NoData();
+    } else {
+      displayConsultationOrders(newFilter);
+    }
+    return;
+  } else if (e.target.value === "ACCEPTED") {
+    let newFilter = filterData.filter((e) => e.status == "ACCEPTED");
+    if (newFilter.length === 0) {
+      NoData();
+    } else {
+      displayConsultationOrders(newFilter);
+    }
+    return;
+  } else {
+    displayConsultationOrders(filterData);
+    return;
+  }
+});
+
+PENDING_FILTER.addEventListener("click", () => {
+  let newFilter = filterData.filter((e) => e.status == "PENDING");
+  if (newFilter.length === 0) {
+    NoData();
+  } else {
+    displayConsultationOrders(newFilter);
+  }
+  return;
+});
+PAID_FILTER.addEventListener("click", () => {
+  let newFilter = filterData.filter((e) => e.status == "PAID");
+  if (newFilter.length === 0) {
+    NoData();
+  } else {
+    displayConsultationOrders(newFilter);
+  }
+  return;
+});

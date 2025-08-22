@@ -11,6 +11,7 @@ function activeReload() {
 }
 activeReload();
 function NoData() {
+  cardsContainer.innerHTML = "";
   cardsContainer.innerHTML = `
     <tr>
         <td colspan="7" class="text-center">
@@ -125,3 +126,55 @@ function AddToFavorites(doctorId) {
     alert("added to favorite successfully!🩺❤️");
   }
 }
+
+/* ------------------ filter ---------------------- */
+let searchBar = document.getElementById("searchBar");
+let Specialty_filter = document.getElementById("Specialty_filter");
+let governments_filter = document.getElementById("governments_filter");
+searchBar.addEventListener("keyup", (e) => {
+  if (e.target.value !== "") {
+    const searchValue = e.target.value.toLowerCase();
+    const filteredDoctors = allDoctors.filter((doctor) => {
+      let fullName = `${doctor.firstName} ${doctor.middleName} ${doctor.lastName}`;
+      return fullName.toLowerCase().includes(searchValue);
+    });
+    if (filteredDoctors.length == 0) {
+      NoData();
+    } else {
+      cards(filteredDoctors);
+    }
+  }
+  if (e.target.value === "") {
+    cards(allDoctors);
+  }
+});
+governments_filter.addEventListener("change", () => {
+  if (governments_filter.value != "") {
+    const filteredDoctors = allDoctors.filter((doctor) => {
+      return doctor.government == governments_filter.value;
+    });
+    if (filteredDoctors.length === 0) {
+      NoData();
+    } else {
+      cards(filteredDoctors);
+    }
+  } else {
+    cards(allDoctors);
+  }
+});
+Specialty_filter.addEventListener("change", () => {
+  console.log(allDoctors);
+
+  if (Specialty_filter.value != "") {
+    const filteredDoctors = allDoctors.filter((doctor) => {
+      return doctor.specialest == Specialty_filter.value;
+    });
+    if (filteredDoctors.length === 0) {
+      NoData();
+    } else {
+      cards(filteredDoctors);
+    }
+  } else {
+    cards(allDoctors);
+  }
+});
