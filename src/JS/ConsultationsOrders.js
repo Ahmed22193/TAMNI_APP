@@ -1,7 +1,29 @@
+function activeReload() {
+  const loadingOverlay = document.createElement("div");
+  loadingOverlay.className = "loading-overlay";
+  loadingOverlay.innerHTML = `
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    `;
+  document.body.appendChild(loadingOverlay);
+}
+activeReload();
+function NoData() {
+  consultationsContainer.innerHTML = `
+    <tr>
+        <td colspan="7" class="text-center">
+        <iframe 
+            src="https://lottie.host/embed/94c24c1c-f68a-4a62-99e6-f5d14bb37f04/MBHNcShOmq.lottie" 
+            style="width:100%; height:300px; border:none;">
+        </iframe>
+        </td>
+    </tr>
+    `;
+}
 const consultationsContainer = document.getElementById(
   "consultationsContainer"
 );
-
 fetch("https://tamni.vercel.app/api/doctor/ConsultationsOrders", {
   method: "GET",
   headers: {
@@ -9,12 +31,24 @@ fetch("https://tamni.vercel.app/api/doctor/ConsultationsOrders", {
     Authorization: "Bearer " + localStorage.getItem("token"),
   },
 })
-  .then((response) => response.json())
+  .then((response) => {
+    if (
+      response.status == 401 ||
+      response.status == 404 ||
+      response.status == 500
+    ) {
+      NoData();
+    }
+    return response.json();
+  })
   .then((data) => {
     console.log("Fetched consultations orders:", data.data);
     displayConsultationOrders(data.data);
+    document.querySelector(".loading-overlay").remove();
   })
   .catch((error) => {
+    document.querySelector(".loading-overlay").remove();
+    NoData();
     console.error("Error fetching consultations orders:", error);
   });
 function displayConsultationOrders(orders) {
@@ -77,6 +111,7 @@ function displayConsultationOrders(orders) {
   });
 }
 function acceptConsultation(consultationId, status) {
+  activeReload();
   fetch("https://tamni.vercel.app/api/doctor/updateConsultationStatus", {
     method: "PATCH",
     headers: {
@@ -86,6 +121,8 @@ function acceptConsultation(consultationId, status) {
     body: JSON.stringify({ consultationId, status }),
   }).then((response) => {
     if (response.ok) {
+      document.querySelector(".loading-overlay").remove();
+      window.location.reload();
       alert("Consultation accepted successfully");
     } else {
       alert("Failed to accept consultation.");
@@ -94,6 +131,7 @@ function acceptConsultation(consultationId, status) {
   });
 }
 function rejectConsultation(consultationId, status) {
+  activeReload();
   fetch("https://tamni.vercel.app/api/doctor/updateConsultationStatus", {
     method: "PATCH",
     headers: {
@@ -103,6 +141,9 @@ function rejectConsultation(consultationId, status) {
     body: JSON.stringify({ consultationId, status }),
   }).then((response) => {
     if (response.ok) {
+      document.querySelector(".loading-overlay").remove();
+      window.location.reload();
+
       alert("Consultation rejected successfully");
     } else {
       alert("Failed to reject consultation.");
@@ -182,7 +223,7 @@ function UploadReport(consultationId) {
     const formData = new FormData();
     formData.append("file", fileInput.files[0]);
     formData.append("consultationId", consultationId);
-
+    activeReload();
     fetch("https://tamni.vercel.app/api/doctor/addReport", {
       method: "POST",
       headers: {
@@ -191,8 +232,12 @@ function UploadReport(consultationId) {
       body: formData,
     }).then((response) => {
       if (response.ok) {
+        document.querySelector(".loading-overlay").remove();
+        window.location.reload();
+
         alert("Report uploaded successfully");
       } else {
+        document.querySelector(".loading-overlay").remove();
         alert("Failed to upload report.");
         console.error("Error uploading report:", response.statusText);
       }

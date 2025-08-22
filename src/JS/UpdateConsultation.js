@@ -61,16 +61,19 @@ document
     };
 
     let description = `
---- Consultation Form ---
-📝 Main Complaint: ${data.mainComplaint}
-🤒 Current Symptoms: ${data.currentSymptoms}
-⏳ Duration of Symptoms: ${data.duration}
+    ---------------------------------
 🎂 Age: ${data.age || "Not provided"}
-📞 Response Type: ${data.type}
+    ---------------------------------
+📝 Main Complaint: ${data.mainComplaint}
+    ---------------------------------
+🤒 Current Symptoms: ${data.currentSymptoms}
+    ---------------------------------
+⏳ Duration of Symptoms: ${data.duration}
+    ---------------------------------
 🏥 Medical History: ${
       data.medicalHistory.length ? data.medicalHistory.join(", ") : "None"
     }
----------------------------
+    ---------------------------------
 `;
 
     const formData = new FormData();

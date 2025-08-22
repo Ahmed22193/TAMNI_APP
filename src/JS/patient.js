@@ -10,7 +10,6 @@ function activeReload() {
 }
 activeReload();
 let consultations = []; // نخزن البيانات
-
 function statusIcon(status) {
   switch (status?.toLowerCase()) {
     case "pending":
@@ -25,7 +24,6 @@ function statusIcon(status) {
       return '<i class="fa-solid fa-info-circle text-secondary"></i>';
   }
 }
-
 function renderConsultations(data) {
   const container = document.getElementById("cards-container");
   container.innerHTML = "";
@@ -199,6 +197,7 @@ function viewReport(reportUrl) {
 
 // تنفيذ الدفع عند الضغط على زر الدفع
 function payForConsultation(id) {
+  activeReload();
   const token = localStorage.getItem("token");
   if (!token) {
     alert("يجب تسجيل الدخول أولاً!");
@@ -206,6 +205,7 @@ function payForConsultation(id) {
   }
   payConsultation(id, token)
     .then((data) => {
+      document.querySelector(".loading-overlay").remove();
       alert("تم الدفع بنجاح!\n" + (data.message || ""));
       location.reload();
     })
@@ -217,7 +217,7 @@ function payForConsultation(id) {
 async function payConsultation(consultationId, token) {
   try {
     const response = await fetch("https://tamni.vercel.app/api/patient/PAID", {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -234,9 +234,10 @@ async function payConsultation(consultationId, token) {
     throw error;
   }
 }
-
 // تنفيذ الحذف عند الضغط على زر الحذف
 function deleteConsultation(id) {
+  activeReload();
+
   const token = localStorage.getItem("token");
   if (!token) {
     alert("يجب تسجيل الدخول أولاً!");
@@ -245,6 +246,21 @@ function deleteConsultation(id) {
   if (!confirm("هل أنت متأكد أنك تريد حذف الاستشارة؟")) return;
   deleteConsultationApi(id, token)
     .then((data) => {
+      let consultationArr = JSON.parse(
+        localStorage.getItem("consultationInfo")
+      );
+      const existingIndex = consultationArr.findIndex(
+        (item) => item.consultationId == id
+      );
+      if (existingIndex !== -1) {
+        // لو موجودة، حدثها
+        consultationArr.splice(existingIndex, 1);
+        localStorage.setItem(
+          "consultationInfo",
+          JSON.stringify(consultationArr)
+        );
+      }
+      document.querySelector(".loading-overlay").remove();
       alert("تم حذف الاستشارة بنجاح!\n" + (data.message || ""));
       location.reload();
     })
@@ -252,13 +268,12 @@ function deleteConsultation(id) {
       alert("حدث خطأ أثناء الحذف: " + (err.message || err));
     });
 }
-
 async function deleteConsultationApi(consultationId, token) {
   try {
     const response = await fetch(
       "https://tamni.vercel.app/api/patient/deleteConsultation",
       {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
