@@ -27,24 +27,50 @@
       </ul>
     </header>
 
-    <div class="main container">
-      <h2>Search</h2>
-      <div class="filter">
-        <select class="form-select">
-          <option selected>Government</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+    <div class="main container my-5">
+      <!-- الفلاتر -->
+      <div
+        class="search_Filters d-flex flex-wrap align-items-center gap-2 p-3 bg-primary-subtle rounded shadow-sm mb-3"
+      >
+        <!-- Search Input -->
+        <input
+          id="searchBar"
+          type="text"
+          class="form-control flex-grow-1"
+          placeholder="🔍 Search by Doctor name..."
+        />
+        <!-- Role Filter -->
+        <select class="form-select w-auto" id="Specialty_filter">
+          <option value="">Specialty</option>
+          <option value="AllUsers">All Users</option>
+          <option value="admin">Admin</option>
+          <option value="patients">Patients</option>
+          <option value="doctors">Doctors</option>
+          <option value="active_doctors">Active_Doctors</option>
+          <option value="waiting_doctors">Waiting_Doctors</option>
         </select>
-        <select class="form-select" aria-label="Default select example">
-          <option selected>Medicial Specialization</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="form-select w-auto" id="governments_filter">
+          <option value="">governments</option>
+          <option value="AllUsers">All Users</option>
+          <option value="admin">Admin</option>
+          <option value="patients">Patients</option>
+          <option value="doctors">Doctors</option>
+          <option value="active_doctors">Active_Doctors</option>
+          <option value="waiting_doctors">Waiting_Doctors</option>
         </select>
+
+        <!-- Search Button -->
+        <button class="btn btn-primary" id="DoctorSearchBtn">Search</button>
       </div>
-      <div class="cards-container" id="cardsContainer">
-        <!-- Cards will be added here by JavaScript -->
+
+      <!-- الكروت -->
+      <div
+        class="cards-container row row-cols-1 row-cols-md-2 g-4"
+        id="cardsContainer"
+      >
+        <!-- Card Example -->
+
+        <!-- تقدر تكرر الكارد بنفس الشكل -->
       </div>
     </div>
 

@@ -23,8 +23,8 @@ function parseJwt(token) {
 }
 
 function logout() {
-  const confirmLogout = prompt("Enter 'logout' to confirm logout");
-  if (confirmLogout === "logout") {
+  const confirmLogout = confirm("Enter 'logout' to confirm logout");
+  if (confirmLogout) {
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
     renderNavbar();
@@ -71,7 +71,8 @@ function renderNavbar() {
         <li><a class="a_link" href="/index.html">Home</a></li>
         <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
         <li><a class="a_link" href="/src/pages/admin/AllUsers.html">Users</a></li>
-        <li><a class="a_link" href="/src/pages/admin/status.html">Status</a></li>
+        <li><a class="a_link" href="/src/pages/admin/status.html">Stats</a></li>
+        <li><a class="a_link" href="#">♥</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     } else if (userData?.userType === "DOCTOR") {
@@ -79,6 +80,7 @@ function renderNavbar() {
         <li><a class="a_link" href="/index.html">Home</a></li>
         <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
         <li><a class="a_link" href="/src/pages/doctor/ConsultationsOrder.html">Consultations</a></li>
+        <li><a class="a_link" href="#">♥</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     } else {
@@ -86,6 +88,7 @@ function renderNavbar() {
         <li><a class="a_link" href="/index.html">Home</a></li>
         <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
         <li><a class="a_link" href="/src/pages/patient/MyCosultations.html">Consultations</a></li>
+        <li><a class="a_link" href="#">♥</a></li>
         <li><a class="a_link" href="#" onclick="logout()">Logout</a></li>
       `;
     }
@@ -95,6 +98,7 @@ function renderNavbar() {
       <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
       <li><a class="a_link" href="/src/pages/Auth/login.html">Login</a></li>
       <li><a class="a_link" href="/src/pages/patientOrDoctor.html">Register</a></li>
+      <li><a class="a_link" href="#">♥</a></li>
     `;
   }
   navbarLinks.innerHTML = linksHtml;
