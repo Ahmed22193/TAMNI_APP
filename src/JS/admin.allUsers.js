@@ -1,5 +1,5 @@
 const userTableBody = document.getElementById("userTableBody");
-const allUsers = [];
+let allUsers = [];
 function activeReload() {
   const loadingOverlay = document.createElement("div");
   loadingOverlay.className = "loading-overlay";
@@ -10,7 +10,7 @@ function activeReload() {
     `;
   document.body.appendChild(loadingOverlay);
 }
-activeReload();
+//activeReload();
 function NoData() {
   userTableBody.innerHTML = `
     <tr>
@@ -82,7 +82,7 @@ let displayUsers = function (arr) {
   });
 };
 
-fetch("https://tamni.vercel.app/api/admin/getAllUsers", {
+/* fetch("https://tamni.vercel.app/api/admin/getAllUsers", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
@@ -111,6 +111,7 @@ fetch("https://tamni.vercel.app/api/admin/getAllUsers", {
     console.error("Error fetching users:", error);
     document.querySelector(".loading-overlay")?.remove();
   });
+ */
 
 function activateUser(userId) {
   const confirmActivate = confirm(
@@ -195,6 +196,50 @@ function deleteUser(userId) {
     alert("Deletion cancelled");
   }
 }
+
+/* ------------------------------------------ */
+
+function saveToLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+function getFromLocalStorage(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
+async function fetchAllUsers() {
+  const key = "admin-AllUsers";
+  // 1) عرض البيانات من LocalStorage لو موجودة
+  const localData = getFromLocalStorage(key);
+  if (localData) {
+    displayUsers(localData);
+  }
+  // 2) في الخلفية: هات بيانات جديدة من API
+  try {
+    const res = await fetch("https://tamni.vercel.app/api/admin/getAllUsers", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (res.status === 404 || res.status === 401 || res.status === 500) {
+      NoData();
+      throw new Error("Network response was not ok");
+    }
+    const apiData = await res.json();
+
+    allUsers = apiData.data; // >> باخد كل الداتا بتاعة اليوزرس علشان اعمل فلتر عليهم
+
+    // 3) لو البيانات الجديدة مختلفة عن المخزنة → حدث
+    if (JSON.stringify(apiData.data) !== JSON.stringify(localData)) {
+      saveToLocalStorage(key, apiData.data);
+      displayUsers(apiData.data); // اعرض الجديد
+    }
+  } catch (err) {
+    console.error("Error fetching doctors:", err);
+  }
+}
+fetchAllUsers();
 
 //------------------------------------------------------
 //--------------------------users_filter----------------
