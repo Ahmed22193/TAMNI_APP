@@ -33,20 +33,13 @@ document
     };
 
     let description = `
-    ---------------------------------
-🎂 Age: ${data.age || "Not provided"}
-    ---------------------------------
-📝 Main Complaint: ${data.mainComplaint}
-    ---------------------------------
-🤒 Current Symptoms: ${data.currentSymptoms}
-    ---------------------------------
-⏳ Duration of Symptoms: ${data.duration}
-    ---------------------------------
-🏥 Medical History: ${
-      data.medicalHistory.length ? data.medicalHistory.join(", ") : "None"
-    }
-    ---------------------------------
-`;
+      🎂{Age: ${data.age || "Not provided"}}---
+      📝{Main Complaint: ${data.mainComplaint}}---
+      🤒{Current Symptoms: ${data.currentSymptoms}}---
+      ⏳{Duration of Symptoms: ${data.duration}}---
+      🏥{Medical History: ${
+            data.medicalHistory.length ? data.medicalHistory.join(", ") : "None"
+    }}`;
 
     const formData = new FormData();
     formData.append("type", data.type);

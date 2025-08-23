@@ -47,7 +47,6 @@ document
     let btn = document.querySelector("button[type=submit]");
     btn.innerHTML = "updating...";
     btn.disabled = true;
-
     const data = {
       mainComplaint: mainComplaint.value,
       currentSymptoms: currentSymptoms.value,
@@ -59,22 +58,14 @@ document
         document.querySelectorAll("input[type=checkbox]:checked")
       ).map((cb) => cb.value),
     };
-
     let description = `
-    ---------------------------------
-🎂 Age: ${data.age || "Not provided"}
-    ---------------------------------
-📝 Main Complaint: ${data.mainComplaint}
-    ---------------------------------
-🤒 Current Symptoms: ${data.currentSymptoms}
-    ---------------------------------
-⏳ Duration of Symptoms: ${data.duration}
-    ---------------------------------
-🏥 Medical History: ${
-      data.medicalHistory.length ? data.medicalHistory.join(", ") : "None"
-    }
-    ---------------------------------
-`;
+      🎂{Age: ${data.age || "Not provided"}}---
+      📝{Main Complaint: ${data.mainComplaint}}---
+      🤒{Current Symptoms: ${data.currentSymptoms}}---
+      ⏳{Duration of Symptoms: ${data.duration}}---
+      🏥{Medical History: ${
+        data.medicalHistory.length ? data.medicalHistory.join(", ") : "None"
+      }}`;
 
     const formData = new FormData();
     formData.append("type", data.type);
