@@ -34,11 +34,20 @@ function cards(data) {
             <div class="row g-0">
               <!-- صورة الدكتور -->
               <div class="col-md-4 position-relative">
-                <img
+              ${
+                doctor.gender == "MALE"
+                  ? `<img
+                  src="../../src/images/male_doctor.png"
+                  class="img-fluid rounded-start"
+                  alt="Doctor"
+                />`
+                  : `<img
                   src="../../src/images/doctor.jpg"
                   class="img-fluid rounded-start"
                   alt="Doctor"
-                />
+                />`
+              }
+                
                 <!-- أيقونة المفضلة -->
               </div>
               <!-- بيانات الدكتور -->
