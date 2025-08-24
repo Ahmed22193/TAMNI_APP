@@ -9,6 +9,15 @@ function activeReload() {
     `;
   document.body.appendChild(loadingOverlay);
 }
+/*-----------------اللوكال ستورج---------------------*/
+function saveToLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+function getFromLocalStorage(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
+
 activeReload();
 function NoData() {
   cardsContainer.innerHTML = "";
@@ -25,16 +34,23 @@ function NoData() {
 }
 let allDoctors = [];
 
-let favorites;
+/*let favorites;
 if (localStorage.getItem("favorites") !== null) {
   favorites = JSON.parse(localStorage.getItem("favorites"));
 } else {
   favorites = [];
-}
+}*/
+
+/*-----------------تعريف متغيرات-------------*/
+let favorites = getFromLocalStorage("favorites") || [];
+const key = "allDoctors"; // مفتاح التخزين المحلي للأطباء
+
+
+
 
 const apiURL = "https://tamni.vercel.app/api/doctor/Doctors";
 
-fetch(apiURL)
+/*fetch(apiURL)
   .then((response) => {
     if (response.status === 404 || response.status === 500) {
       document.querySelector(".loading-overlay").remove();
@@ -51,7 +67,41 @@ fetch(apiURL)
   .catch((error) => {
     document.querySelector(".loading-overlay").remove();
     console.error("Error:", error);
-  });
+  });*/
+/*-----------------------جلب بيانات--------------------*/
+async function fetchAllDoctors() {
+  activeReload();
+
+  const localData = getFromLocalStorage(key);
+  if (localData) {
+    cards(localData);
+  }
+
+  try {
+    const res = await fetch(apiURL, { method: "GET" });
+
+    if (res.status === 404 || res.status === 500) {
+      document.querySelector(".loading-overlay").remove();
+      NoData();
+      throw new Error("حدث خطأ في الطلب: " + res.status);
+    }
+
+    const apiData = await res.json();
+    allDoctors = apiData.data;
+
+    document.querySelector(".loading-overlay").remove();
+
+    if (JSON.stringify(apiData.data) !== JSON.stringify(localData)) {
+      saveToLocalStorage(key, apiData.data);
+      cards(apiData.data);
+    }
+  } catch (err) {
+    document.querySelector(".loading-overlay").remove();
+    console.error("Error fetching doctors:", err);
+  }
+}
+
+
 
 function cards(data) {
   cardsContainer.innerHTML = "";
@@ -130,12 +180,14 @@ function AddToFavorites(doctorId) {
     alert("doctor is already in favorites👉");
   } else {
     favorites.push(doctorData);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+    /*localStorage.setItem("favorites", JSON.stringify(favorites));*/
+    /*----------------------المفضلة----------------------*/
+    saveToLocalStorage("favorites", favorites);
     alert("added to favorite successfully!🩺❤️");
   }
 }
 
-/* ------------------ filter ---------------------- */
+// ------------------ filter ---------------------- 
 let searchBar = document.getElementById("searchBar");
 let Specialty_filter = document.getElementById("Specialty_filter");
 let governments_filter = document.getElementById("governments_filter");
@@ -186,3 +238,6 @@ Specialty_filter.addEventListener("change", () => {
     cards(allDoctors);
   }
 });
+
+/*--------------------تشغيل----------------*/
+fetchAllDoctors();
