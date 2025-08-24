@@ -1,3 +1,12 @@
+// دوال عامة للتخزين والاسترجاع من localStorage
+function saveToLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+function getFromLocalStorage(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
 function activeReload() {
   const loadingOverlay = document.createElement("div");
   loadingOverlay.className = "loading-overlay";
@@ -173,7 +182,22 @@ fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
 
     // الاستشارات فعليًا موجودة في data.data
     consultations = Array.isArray(data.data) ? data.data : [];
+    // تخزين الاستشارات في localStorage
+    saveToLocalStorage("consultations", consultations);
+    // لو فيه بيانات مستخدم في الاستشارة، خزّنها أيضًا
+    if (consultations.length > 0 && consultations[0].patient) {
+      saveToLocalStorage("patient", consultations[0].patient);
+    }
+    // لو فيه بيانات دكتور في الاستشارة، خزّنها أيضًا
+    if (consultations.length > 0 && consultations[0].doctor) {
+      saveToLocalStorage("doctor", consultations[0].doctor);
+    }
     renderConsultations(consultations);
+// عند بداية الصفحة، جربي استرجاع البيانات من localStorage لو موجودة
+const localConsultations = getFromLocalStorage("consultations");
+if (localConsultations && Array.isArray(localConsultations) && localConsultations.length > 0) {
+  renderConsultations(localConsultations);
+}
   })
   .catch((err) => {
     document.querySelector(".loading-overlay").remove();
