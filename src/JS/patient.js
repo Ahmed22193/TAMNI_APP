@@ -1,11 +1,48 @@
+
 // دوال عامة للتخزين والاسترجاع من localStorage
 function saveToLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
+
 function getFromLocalStorage(key) {
   const data = localStorage.getItem(key);
   return data ? JSON.parse(data) : null;
 }
+
+// منطق التخزين والعرض
+async function fetchConsultations() {
+  const key = "consultations";
+  // 1) عرض البيانات من LocalStorage لو موجودة
+  const localData = getFromLocalStorage(key);
+  if (localData && Array.isArray(localData) && localData.length > 0) {
+    renderConsultations(localData);
+  }
+  // 2) في الخلفية: هات بيانات جديدة من API
+  try {
+    const res = await fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (res.status === 404 || res.status === 401 || res.status === 500) {
+      // يمكنك هنا عرض رسالة خطأ أو NoData();
+      throw new Error("Network response was not ok");
+    }
+    const apiData = await res.json();
+    const apiConsultations = Array.isArray(apiData.data) ? apiData.data : [];
+    // 3) لو البيانات الجديدة مختلفة عن المخزنة → حدث
+    if (JSON.stringify(apiConsultations) !== JSON.stringify(localData)) {
+      saveToLocalStorage(key, apiConsultations);
+      renderConsultations(apiConsultations); // اعرض الجديد
+    }
+  } catch (err) {
+    console.error("Error fetching consultations:", err);
+  }
+}
+fetchConsultations();
+
 function activeReload() {
   const loadingOverlay = document.createElement("div");
   loadingOverlay.className = "loading-overlay";
@@ -17,6 +54,10 @@ function activeReload() {
   document.body.appendChild(loadingOverlay);
 }
 activeReload();
+
+
+// العمليات الأساسية فقط (عرض الاستشارات)
+
 let consultations = []; // نخزن البيانات
 function statusIcon(status) {
   switch (status?.toLowerCase()) {
@@ -43,37 +84,29 @@ function renderConsultations(data) {
   data.forEach((item) => {
     // تجاهل الاستشارات المحذوفة من العرض للمستخدم
     if ((item.status || "").toLowerCase() === "deleted") return;
-    let fullName = `${item.doctor?.firstName || ""} ${
-      item.doctor?.middleName || ""
-    } ${item.doctor?.lastName || ""}`;
+    let fullName = `${item.doctor?.firstName || ""} ${item.doctor?.middleName || ""} ${item.doctor?.lastName || ""}`;
     const slide = document.createElement("div");
     slide.className = "swiper-slide d-flex h-100";
 
-    const card = document.createElement("div");
+const card = document.createElement("div");
     card.className =
       "consult-card card border-0 shadow d-flex flex-column justify-content-between w-100";
     card.style.height = "100%";
     // Header
     const header = document.createElement("div");
     header.className = `card-header status-bar text-center ${item.status}`;
-    header.innerHTML = `${statusIcon(item.status)} <strong>${
-      item.status?.toUpperCase() || ""
-    }</strong>`;
+    header.innerHTML = `${statusIcon(item.status)} <strong>${item.status?.toUpperCase() || ""}</strong>`;
 
     // Body
     const body = document.createElement("div");
     body.className = "card-body text-center p-2 flex-grow-1";
-    body.innerHTML = `<h5 class="card-title mb-1">${
-      `Dr. ${fullName}` || "Doctor"
-    }</h5>
+    body.innerHTML = `<h5 class="card-title mb-1">${`Dr. ${fullName}` || "Doctor"}</h5>
       <p class="mb-1 text-muted small"><b>${item.doctor?.address || ""}</b></p>
       <p class="mb-2 fw-semibold">${item.doctor?.specialest || ""}</p>`;
     // Actions
-    const actionsDiv = document.createElement("div");
-    actionsDiv.className =
-      "d-flex justify-content-center gap-2 mt-3 card-actions";
-    const status = (item.status || "").toLowerCase();
-
+  const actionsDiv = document.createElement("div");
+  actionsDiv.className = "d-flex justify-content-center gap-2 mt-3 card-actions";
+  const status = (item.status || "").toLowerCase();
     // دعم حالة الاستشارة المحذوفة
     if (status === "deleted") {
       // تظليل الكارت وتوضيح أنه محذوف
@@ -89,6 +122,7 @@ function renderConsultations(data) {
       container.appendChild(slide);
       return;
     }
+
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "btn btn-sm btn-danger btn-delete";
@@ -107,7 +141,6 @@ function renderConsultations(data) {
         };
         actionsDiv.appendChild(editBtn);
       }
-      //delete
       actionsDiv.appendChild(deleteBtn);
     }
     if (status === "done" || status === "completed") {
@@ -119,6 +152,7 @@ function renderConsultations(data) {
       };
       actionsDiv.appendChild(reportBtn);
     }
+     
     if (status === "accepted") {
       const payBtn = document.createElement("button");
       payBtn.className = "btn btn-sm btn-success btn-pay";
@@ -161,8 +195,13 @@ function renderConsultations(data) {
       },
     });
   }
-}
-//  جلب البيانات من الـ API مع التوكين
+  }
+
+
+
+
+/*
+// جلب البيانات من الـ API في الخلفية ومقارنتها وتحديث localStorage فقط إذا تغيرت البيانات
 fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -170,12 +209,31 @@ fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
 })
   .then((res) => res.json())
   .then((data) => {
+    if (data && data.data) {
+      const apiConsultations = Array.isArray(data.data) ? data.data : [];
+      if (JSON.stringify(apiConsultations) !== JSON.stringify(localConsultations  [])) {
+        saveToLocalStorage("consultations", apiConsultations);
+        renderConsultations(apiConsultations);
+        localConsultations = apiConsultations;
+      }
+  })
+  .catch((err) => {
+    console.error("API Error:", err);
+  });*/
+//  جلب البيانات من الـ API مع التوكين
+fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+})
+  then((res) => res.json())
+  .then((data) => {
     console.log("API Response:", data.data);
     document.querySelector(".loading-overlay").remove();
     if (data.message && !data.data) {
       document.getElementById(
         "cards-container"
-      ).innerHTML = `<div class='alert alert-danger mx-auto text-center'>${data.err}</div>`;
+      ).innerHTML = <div class='alert alert-danger mx-auto text-center'>${data.err}</div>;
       return;
     }
 
@@ -183,14 +241,14 @@ fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
     consultations = Array.isArray(data.data) ? data.data : [];
     // تخزين الاستشارات في localStorage
     saveToLocalStorage("consultations", consultations);
-    // لو فيه بيانات مستخدم في الاستشارة، خزّنها أيضًا
-    if (consultations.length > 0 && consultations[0].patient) {
-      saveToLocalStorage("patient", consultations[0].patient);
-    }
-    // لو فيه بيانات دكتور في الاستشارة، خزّنها أيضًا
-    if (consultations.length > 0 && consultations[0].doctor) {
-      saveToLocalStorage("doctor", consultations[0].doctor);
-    }
+  // لو فيه بيانات مستخدم في الاستشارة، خزّنها أيضًا (غير مستخدم حالياً)
+  // if (consultations.length > 0 && consultations[0].patient) {
+  //   saveToLocalStorage("patient", consultations[0].patient);
+  // }
+  // لو فيه بيانات دكتور في الاستشارة، خزّنها أيضًا (غير مستخدم حالياً)
+  // if (consultations.length > 0 && consultations[0].doctor) {
+  //   saveToLocalStorage("doctor", consultations[0].doctor);
+  // }
     renderConsultations(consultations);
 // عند بداية الصفحة، جربي استرجاع البيانات من localStorage لو موجودة
 const localConsultations = getFromLocalStorage("consultations");
@@ -203,14 +261,15 @@ if (localConsultations && Array.isArray(localConsultations) && localConsultation
     console.error("API Error:", err);
     document.getElementById(
       "cards-container"
-    ).innerHTML = `<div class='alert alert-danger text-center'>فشل الاتصال بالخادم.</div>`;
+    ).innerHTML = <div class='alert alert-danger text-center'>فشل الاتصال بالخادم.</div>;
   });
-
+ 
 
 
 function EditConsultation(id) {
   window.location.href = `updateConsultation.html?id=${id}`;
 }
+
 function viewReport(reportUrl) {
   if (reportUrl) {
     window.open(reportUrl, "_blank");
@@ -218,6 +277,7 @@ function viewReport(reportUrl) {
     alert("No report available");
   }
 }
+
 // تنفيذ الدفع عند الضغط على زر الدفع
 function payForConsultation(id) {
   activeReload();
@@ -236,6 +296,7 @@ function payForConsultation(id) {
       alert("حدث خطأ أثناء الدفع: " + (err.message || err));
     });
 }
+
 async function payConsultation(consultationId, token) {
   try {
     const response = await fetch("https://tamni.vercel.app/api/patient/PAID", {
@@ -298,8 +359,7 @@ async function deleteConsultationApi(consultationId, token) {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`, },
         body: JSON.stringify({ consultationId }),
       }
     );
@@ -311,5 +371,5 @@ async function deleteConsultationApi(consultationId, token) {
   } catch (error) {
     console.error("Error in deleteConsultationApi:", error);
     throw error;
-  }
-}
+  }}
+
