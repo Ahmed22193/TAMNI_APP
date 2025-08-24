@@ -18,7 +18,7 @@ function getFromLocalStorage(key) {
   return data ? JSON.parse(data) : null;
 }
 
-activeReload();
+//activeReload();
 function NoData() {
   cardsContainer.innerHTML = "";
   cardsContainer.innerHTML = `
@@ -43,10 +43,8 @@ if (localStorage.getItem("favorites") !== null) {
 
 /*-----------------تعريف متغيرات-------------*/
 let favorites = getFromLocalStorage("favorites") || [];
+
 const key = "allDoctors"; // مفتاح التخزين المحلي للأطباء
-
-
-
 
 const apiURL = "https://tamni.vercel.app/api/doctor/Doctors";
 
@@ -70,7 +68,7 @@ const apiURL = "https://tamni.vercel.app/api/doctor/Doctors";
   });*/
 /*-----------------------جلب بيانات--------------------*/
 async function fetchAllDoctors() {
-  activeReload();
+  //activeReload();
 
   const localData = getFromLocalStorage(key);
   if (localData) {
@@ -89,19 +87,14 @@ async function fetchAllDoctors() {
     const apiData = await res.json();
     allDoctors = apiData.data;
 
-    document.querySelector(".loading-overlay").remove();
-
     if (JSON.stringify(apiData.data) !== JSON.stringify(localData)) {
       saveToLocalStorage(key, apiData.data);
       cards(apiData.data);
     }
   } catch (err) {
-    document.querySelector(".loading-overlay").remove();
     console.error("Error fetching doctors:", err);
   }
 }
-
-
 
 function cards(data) {
   cardsContainer.innerHTML = "";
@@ -187,7 +180,7 @@ function AddToFavorites(doctorId) {
   }
 }
 
-// ------------------ filter ---------------------- 
+// ------------------ filter ----------------------
 let searchBar = document.getElementById("searchBar");
 let Specialty_filter = document.getElementById("Specialty_filter");
 let governments_filter = document.getElementById("governments_filter");

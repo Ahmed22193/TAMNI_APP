@@ -2,7 +2,6 @@
 function saveToLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-
 function getFromLocalStorage(key) {
   const data = localStorage.getItem(key);
   return data ? JSON.parse(data) : null;
@@ -207,10 +206,11 @@ if (localConsultations && Array.isArray(localConsultations) && localConsultation
     ).innerHTML = `<div class='alert alert-danger text-center'>فشل الاتصال بالخادم.</div>`;
   });
 
+
+
 function EditConsultation(id) {
   window.location.href = `updateConsultation.html?id=${id}`;
 }
-
 function viewReport(reportUrl) {
   if (reportUrl) {
     window.open(reportUrl, "_blank");
@@ -218,7 +218,6 @@ function viewReport(reportUrl) {
     alert("No report available");
   }
 }
-
 // تنفيذ الدفع عند الضغط على زر الدفع
 function payForConsultation(id) {
   activeReload();
@@ -237,7 +236,6 @@ function payForConsultation(id) {
       alert("حدث خطأ أثناء الدفع: " + (err.message || err));
     });
 }
-
 async function payConsultation(consultationId, token) {
   try {
     const response = await fetch("https://tamni.vercel.app/api/patient/PAID", {
