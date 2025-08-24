@@ -11,6 +11,12 @@ body {
     margin: auto;
     background-color: #f9f9f9; /* لون فاتح بدلاً من الصورة */
 }
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Cairo', sans-serif;
+}
 /* ===== Layout ===== */
 .parent {
     display: flex;
@@ -292,6 +298,9 @@ font-size: 0.95rem;
 iframe{
     width: 100%;
 }
+
+
+
 
 @media (max-width: 900px) {
     .parent {

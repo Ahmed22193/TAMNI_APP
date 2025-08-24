@@ -243,6 +243,8 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', 'Cairo', sans-serif;
+
 }
 .navbar {
   width: 90%;
@@ -250,7 +252,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px 30px !important;
-  background-color: rgba(0, 19, 105, 0.753)!important;
+  background-color: rgb(0, 19, 105) !important;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   position: fixed;
   left: 80px;

@@ -49,19 +49,16 @@ function checkTokenExpiry() {
 function renderNavbar() {
   const navbarLinks = document.getElementById("navbarLinks");
   if (!navbarLinks) return; // لو الصفحة مفيهاش Navbar
-
   const token = localStorage.getItem("token");
   let linksHtml = "";
-
-  if (token) {
+  if (token !== null && token !== undefined && token !== "") {
     const userData = parseJwt(token);
     localStorage.setItem("userData", JSON.stringify(userData));
-    console.log(userData);
 
     if (createProfileBtn) createProfileBtn.style.display = "none";
     if (loginBtn) loginBtn.style.display = "none";
     if (welcomeMessage) {
-      welcomeMessage.innerHTML = `مرحبا, <span>${
+      welcomeMessage.innerHTML = `welcome, <span>${
         userData?.name || "User"
       }</span> !`;
       welcomeMessage.classList.add("welcome-message");

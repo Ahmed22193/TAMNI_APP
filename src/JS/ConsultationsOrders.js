@@ -8,7 +8,7 @@ function activeReload() {
     `;
   document.body.appendChild(loadingOverlay);
 }
-activeReload();
+//activeReload();
 function NoData() {
   consultationsContainer.innerHTML = `
     <tr>
@@ -25,7 +25,7 @@ let filterData = [];
 const consultationsContainer = document.getElementById(
   "consultationsContainer"
 );
-fetch("https://tamni.vercel.app/api/doctor/ConsultationsOrders", {
+/* fetch("https://tamni.vercel.app/api/doctor/ConsultationsOrders", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
@@ -52,7 +52,8 @@ fetch("https://tamni.vercel.app/api/doctor/ConsultationsOrders", {
     document.querySelector(".loading-overlay").remove();
     NoData();
     console.error("Error fetching consultations orders:", error);
-  });
+  }); */
+
 function displayConsultationOrders(orders) {
   consultationsContainer.innerHTML = "";
   orders.forEach((order) => {
@@ -246,6 +247,52 @@ function UploadReport(consultationId) {
     });
   }
 }
+
+/* --------------------------------------------  */
+/* --------------------------------------------  */
+//               localStorage
+
+function saveSoLocalstorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+function getFromLocalStorage(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
+async function getConsultationOrder() {
+  let key = "consultationOrders";
+  let localData = getFromLocalStorage(key);
+  if (localData !== null) {
+    displayConsultationOrders(localData);
+  }
+  try {
+    let res = await fetch(
+      "https://tamni.vercel.app/api/doctor/ConsultationsOrders",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+    if (res.status === 404 || res.status === 401 || res.status === 500) {
+      NoData();
+      throw new Error("Network response was not ok");
+    }
+    let data = await res.json();
+    filterData = data.data; // علشان اقدر اعمل فلتر عليهم ف بخزنهم هنا
+    if (JSON.stringify(data.data) !== JSON.stringify(localData)) {
+      saveSoLocalstorage(key, data.data);
+      displayConsultationOrders(data.data);
+    }
+  } catch (error) {
+    console.log("Error : ", error);
+  }
+}
+getConsultationOrder();
+/* --------------------------------------------  */
+/* --------------------------------------------  */
 
 /* ---------------- filter logic ------------- */
 

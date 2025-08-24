@@ -110,6 +110,13 @@ body {
       background: #520b9e;
     } */
 
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', 'Cairo', sans-serif;
+}
+
 
 .search_Filters{
   position: sticky;
