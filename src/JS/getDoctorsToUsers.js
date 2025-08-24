@@ -69,24 +69,19 @@ const apiURL = "https://tamni.vercel.app/api/doctor/Doctors";
 /*-----------------------جلب بيانات--------------------*/
 async function fetchAllDoctors() {
   //activeReload();
-
   const localData = getFromLocalStorage(key);
   if (localData) {
     cards(localData);
   }
-
   try {
     const res = await fetch(apiURL, { method: "GET" });
-
     if (res.status === 404 || res.status === 500) {
       document.querySelector(".loading-overlay").remove();
       NoData();
       throw new Error("حدث خطأ في الطلب: " + res.status);
     }
-
     const apiData = await res.json();
     allDoctors = apiData.data;
-
     if (JSON.stringify(apiData.data) !== JSON.stringify(localData)) {
       saveToLocalStorage(key, apiData.data);
       cards(apiData.data);
