@@ -352,7 +352,7 @@ body, .parent, main, .section:first-of-type {
 @media (max-width: 1120px) {
   .navbar {
     left: 50% !important;
-    top: 10px;
+    top: 0px;
     transform: translateX(-50%);
     width: 98% !important;
     margin: 10px auto 0 auto;
