@@ -1,3 +1,5 @@
+
+// دوال عامة للتخزين والاسترجاع من localStorage
 function saveToLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
@@ -6,6 +8,39 @@ function getFromLocalStorage(key) {
   return data ? JSON.parse(data) : null;
 }
 
+// منطق التخزين والعرض
+async function fetchConsultations() {
+  const key = "consultations";
+  // 1) عرض البيانات من LocalStorage لو موجودة
+  const localData = getFromLocalStorage(key);
+  if (localData && Array.isArray(localData) && localData.length > 0) {
+    renderConsultations(localData);
+  }
+  // 2) في الخلفية: هات بيانات جديدة من API
+  try {
+    const res = await fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (res.status === 404 || res.status === 401 || res.status === 500) {
+      // يمكنك هنا عرض رسالة خطأ أو NoData();
+      throw new Error("Network response was not ok");
+    }
+    const apiData = await res.json();
+    const apiConsultations = Array.isArray(apiData.data) ? apiData.data : [];
+    // 3) لو البيانات الجديدة مختلفة عن المخزنة → حدث
+    if (JSON.stringify(apiConsultations) !== JSON.stringify(localData)) {
+      saveToLocalStorage(key, apiConsultations);
+      renderConsultations(apiConsultations); // اعرض الجديد
+    }
+  } catch (err) {
+    console.error("Error fetching consultations:", err);
+  }
+}
+fetchConsultations();
 function activeReload() {
   const loadingOverlay = document.createElement("div");
   loadingOverlay.className = "loading-overlay";
@@ -205,6 +240,14 @@ function renderConsultations(data) {
 }
 //  جلب البيانات من الـ API مع التوكين
 /*fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
+=======
+  }
+
+
+
+/*
+// جلب البيانات من الـ API في الخلفية ومقارنتها وتحديث localStorage فقط إذا تغيرت البيانات
+fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
