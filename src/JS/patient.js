@@ -1,3 +1,4 @@
+
 // دوال عامة للتخزين والاسترجاع من localStorage
 function saveToLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
@@ -6,6 +7,7 @@ function getFromLocalStorage(key) {
   const data = localStorage.getItem(key);
   return data ? JSON.parse(data) : null;
 }
+
 // منطق التخزين والعرض
 async function fetchConsultations() {
   const key = "consultations";
@@ -39,7 +41,6 @@ async function fetchConsultations() {
   }
 }
 fetchConsultations();
-
 function activeReload() {
   const loadingOverlay = document.createElement("div");
   loadingOverlay.className = "loading-overlay";
@@ -50,12 +51,49 @@ function activeReload() {
     `;
   document.body.appendChild(loadingOverlay);
 }
-activeReload();
 
+async function fetchConsultations() {
+  const key = "consultations";
+  activeReload(); // عرض طبقة التحميل أول مرة
+  // 1) عرض البيانات من LocalStorage لو موجودة
+  const localData = getFromLocalStorage(key);
+  if (localData) {
+    renderConsultations(localData);
+  }
+  // 2) في الخلفية: هات بيانات جديدة من API
+  try {
+    const res = await fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (
+      res.status === 404 ||
+      res.status === 401 ||
+      res.status === 500
+    ) {
+      document.querySelector(".loading-overlay").remove();
+      throw new Error("Network response was not ok");
+    }
+    const apiData = await res.json();
+    // 3) لو البيانات الجديدة مختلفة عن المخزنة → حدث
+    if (JSON.stringify(apiData.data) !== JSON.stringify(localData)) {
+      saveToLocalStorage(key, apiData.data);
+      renderConsultations(apiData.data); // اعرض الجديد
+    }
+    document.querySelector(".loading-overlay").remove();
+  } catch (err) {
+    document.querySelector(".loading-overlay").remove();
+    console.error("Error fetching consultations:", err);
+  }
+}
 
-// العمليات الأساسية فقط (عرض الاستشارات)
-
+fetchConsultations();
+console.log('Live reload enabled.');
 let consultations = []; // نخزن البيانات
+
 function statusIcon(status) {
   switch (status?.toLowerCase()) {
     case "pending":
@@ -70,6 +108,7 @@ function statusIcon(status) {
       return '<i class="fa-solid fa-info-circle text-secondary"></i>';
   }
 }
+
 function renderConsultations(data) {
   const container = document.getElementById("cards-container");
   container.innerHTML = "";
@@ -80,30 +119,37 @@ function renderConsultations(data) {
   }
   data.forEach((item) => {
     // تجاهل الاستشارات المحذوفة من العرض للمستخدم
-    if ((item.status || "").toLowerCase() === "deleted") return;
-    let fullName = `${item.doctor?.firstName || ""} ${item.doctor?.middleName || ""} ${item.doctor?.lastName || ""}`;
+    if ((item.status || '').toLowerCase() === 'deleted') return;
+    let fullName = `${item.doctor?.firstName || ""} ${
+      item.doctor?.middleName || ""
+    } ${item.doctor?.lastName || ""}`;
     const slide = document.createElement("div");
     slide.className = "swiper-slide d-flex h-100";
 
-const card = document.createElement("div");
+    const card = document.createElement("div");
     card.className =
       "consult-card card border-0 shadow d-flex flex-column justify-content-between w-100";
     card.style.height = "100%";
     // Header
     const header = document.createElement("div");
     header.className = `card-header status-bar text-center ${item.status}`;
-    header.innerHTML = `${statusIcon(item.status)} <strong>${item.status?.toUpperCase() || ""}</strong>`;
+    header.innerHTML = `${statusIcon(item.status)} <strong>${
+      item.status?.toUpperCase() || ""
+    }</strong>`;
 
     // Body
     const body = document.createElement("div");
     body.className = "card-body text-center p-2 flex-grow-1";
-    body.innerHTML = `<h5 class="card-title mb-1">${`Dr. ${fullName}` || "Doctor"}</h5>
+    body.innerHTML = `<h5 class="card-title mb-1">${
+      `Dr. ${fullName}` || "Doctor"
+    }</h5>
       <p class="mb-1 text-muted small"><b>${item.doctor?.address || ""}</b></p>
       <p class="mb-2 fw-semibold">${item.doctor?.specialest || ""}</p>`;
     // Actions
-  const actionsDiv = document.createElement("div");
-  actionsDiv.className = "d-flex justify-content-center gap-2 mt-3 card-actions";
-  const status = (item.status || "").toLowerCase();
+    const actionsDiv = document.createElement("div");
+    actionsDiv.className = "d-flex justify-content-center gap-2 mt-3 card-actions";
+    const status = (item.status || "").toLowerCase();
+
     // دعم حالة الاستشارة المحذوفة
     if (status === "deleted") {
       // تظليل الكارت وتوضيح أنه محذوف
@@ -119,7 +165,6 @@ const card = document.createElement("div");
       container.appendChild(slide);
       return;
     }
-
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "btn btn-sm btn-danger btn-delete";
@@ -138,6 +183,7 @@ const card = document.createElement("div");
         };
         actionsDiv.appendChild(editBtn);
       }
+      //delete
       actionsDiv.appendChild(deleteBtn);
     }
     if (status === "done" || status === "completed") {
@@ -145,11 +191,10 @@ const card = document.createElement("div");
       reportBtn.className = "btn btn-sm btn-primary btn-report";
       reportBtn.textContent = " View Report";
       reportBtn.onclick = () => {
-        viewReport(item.report);
+        viewReport(item._id);
       };
       actionsDiv.appendChild(reportBtn);
     }
-     
     if (status === "accepted") {
       const payBtn = document.createElement("button");
       payBtn.className = "btn btn-sm btn-success btn-pay";
@@ -192,6 +237,10 @@ const card = document.createElement("div");
       },
     });
   }
+}
+//  جلب البيانات من الـ API مع التوكين
+/*fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
+=======
   }
 
 
@@ -205,62 +254,26 @@ fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
 })
   .then((res) => res.json())
   .then((data) => {
-    if (data && data.data) {
-      const apiConsultations = Array.isArray(data.data) ? data.data : [];
-      if (JSON.stringify(apiConsultations) !== JSON.stringify(localConsultations  [])) {
-        saveToLocalStorage("consultations", apiConsultations);
-        renderConsultations(apiConsultations);
-        localConsultations = apiConsultations;
-      }
-  })
-  .catch((err) => {
-    console.error("API Error:", err);
-  });*/
-//  جلب البيانات من الـ API مع التوكين
-fetch("https://tamni.vercel.app/api/patient/MyConsultations", {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-})
-  then((res) => res.json())
-  .then((data) => {
     console.log("API Response:", data.data);
     document.querySelector(".loading-overlay").remove();
     if (data.message && !data.data) {
       document.getElementById(
         "cards-container"
-      ).innerHTML = <div class='alert alert-danger mx-auto text-center'>${data.err}</div>;
+      ).innerHTML = `<div class='alert alert-danger mx-auto text-center'>${data.err}</div>`;
       return;
     }
 
     // الاستشارات فعليًا موجودة في data.data
     consultations = Array.isArray(data.data) ? data.data : [];
-    // تخزين الاستشارات في localStorage
-    saveToLocalStorage("consultations", consultations);
-  // لو فيه بيانات مستخدم في الاستشارة، خزّنها أيضًا (غير مستخدم حالياً)
-  // if (consultations.length > 0 && consultations[0].patient) {
-  //   saveToLocalStorage("patient", consultations[0].patient);
-  // }
-  // لو فيه بيانات دكتور في الاستشارة، خزّنها أيضًا (غير مستخدم حالياً)
-  // if (consultations.length > 0 && consultations[0].doctor) {
-  //   saveToLocalStorage("doctor", consultations[0].doctor);
-  // }
     renderConsultations(consultations);
-// عند بداية الصفحة، جربي استرجاع البيانات من localStorage لو موجودة
-const localConsultations = getFromLocalStorage("consultations");
-if (localConsultations && Array.isArray(localConsultations) && localConsultations.length > 0) {
-  renderConsultations(localConsultations);
-}
   })
   .catch((err) => {
     document.querySelector(".loading-overlay").remove();
     console.error("API Error:", err);
     document.getElementById(
       "cards-container"
-    ).innerHTML = <div class='alert alert-danger text-center'>فشل الاتصال بالخادم.</div>;
-  });
- 
-
+    ).innerHTML = `<div class='alert alert-danger text-center'>فشل الاتصال بالخادم.</div>`;
+  });*/
 
 function EditConsultation(id) {
   window.location.href = `updateConsultation.html?id=${id}`;
@@ -270,13 +283,14 @@ function viewReport(reportUrl) {
   if (reportUrl) {
     window.open(reportUrl, "_blank");
   } else {
-    alert("No report available");
+   alert("No report available");
   }
 }
 
+
+
 // تنفيذ الدفع عند الضغط على زر الدفع
 function payForConsultation(id) {
-  activeReload();
   const token = localStorage.getItem("token");
   if (!token) {
     alert("يجب تسجيل الدخول أولاً!");
@@ -284,7 +298,6 @@ function payForConsultation(id) {
   }
   payConsultation(id, token)
     .then((data) => {
-      document.querySelector(".loading-overlay").remove();
       alert("تم الدفع بنجاح!\n" + (data.message || ""));
       location.reload();
     })
@@ -295,28 +308,28 @@ function payForConsultation(id) {
 
 async function payConsultation(consultationId, token) {
   try {
-    const response = await fetch("https://tamni.vercel.app/api/patient/PAID", {
-      method: "PATCH",
+    const response = await fetch('https://tamni.vercel.app/api/patient/PAID', {
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ consultationId }),
+      body: JSON.stringify({ consultationId })
     });
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.message || "Payment failed");
+      throw new Error(data.message || 'Payment failed');
     }
     return data;
   } catch (error) {
-    console.error("Error in payConsultation:", error);
+    console.error('Error in payConsultation:', error);
     throw error;
   }
 }
+
+
 // تنفيذ الحذف عند الضغط على زر الحذف
 function deleteConsultation(id) {
-  activeReload();
-
   const token = localStorage.getItem("token");
   if (!token) {
     alert("يجب تسجيل الدخول أولاً!");
@@ -325,21 +338,6 @@ function deleteConsultation(id) {
   if (!confirm("هل أنت متأكد أنك تريد حذف الاستشارة؟")) return;
   deleteConsultationApi(id, token)
     .then((data) => {
-      let consultationArr = JSON.parse(
-        localStorage.getItem("consultationInfo")
-      );
-      const existingIndex = consultationArr.findIndex(
-        (item) => item.consultationId == id
-      );
-      if (existingIndex !== -1) {
-        // لو موجودة، حدثها
-        consultationArr.splice(existingIndex, 1);
-        localStorage.setItem(
-          "consultationInfo",
-          JSON.stringify(consultationArr)
-        );
-      }
-      document.querySelector(".loading-overlay").remove();
       alert("تم حذف الاستشارة بنجاح!\n" + (data.message || ""));
       location.reload();
     })
@@ -347,25 +345,24 @@ function deleteConsultation(id) {
       alert("حدث خطأ أثناء الحذف: " + (err.message || err));
     });
 }
+
 async function deleteConsultationApi(consultationId, token) {
   try {
-    const response = await fetch(
-      "https://tamni.vercel.app/api/patient/deleteConsultation",
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, },
-        body: JSON.stringify({ consultationId }),
-      }
-    );
+    const response = await fetch('https://tamni.vercel.app/api/patient/deleteConsultation', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ consultationId })
+    });
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.message || "Delete failed");
+      throw new Error(data.message || 'Delete failed');
     }
     return data;
   } catch (error) {
-    console.error("Error in deleteConsultationApi:", error);
+    console.error('Error in deleteConsultationApi:', error);
     throw error;
-  }}
-
+  }
+}
