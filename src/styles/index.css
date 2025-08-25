@@ -302,7 +302,7 @@ iframe{
 
 /* ---------------------------------------------------------- */
 
-
+/* 
 .imageLinks{
     position: relative;
 }
@@ -330,6 +330,10 @@ iframe{
 }
 .imageLinks:hover img{
     filter: blur(1px);
+} */
+
+.linkedIn a{
+    font-size: 30px;
 }
 
 @media (max-width: 900px) {
