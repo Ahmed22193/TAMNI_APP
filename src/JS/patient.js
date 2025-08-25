@@ -1,14 +1,11 @@
-
 // دوال عامة للتخزين والاسترجاع من localStorage
 function saveToLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-
 function getFromLocalStorage(key) {
   const data = localStorage.getItem(key);
   return data ? JSON.parse(data) : null;
 }
-
 // منطق التخزين والعرض
 async function fetchConsultations() {
   const key = "consultations";
@@ -196,7 +193,6 @@ const card = document.createElement("div");
     });
   }
   }
-
 
 
 

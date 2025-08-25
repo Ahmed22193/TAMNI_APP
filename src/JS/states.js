@@ -8,7 +8,7 @@ function activeReload() {
     `;
   document.body.appendChild(loadingOverlay);
 }
-activeReload();
+//activeReload();
 
 /*document.addEventListener("DOMContentLoaded", () => {
   const API_URL = "https://tamni.vercel.app/api/admin/getStats";
@@ -108,16 +108,23 @@ async function loadStats() {
 
 function displayStats(data) {
   document.getElementById("allUsers").innerText = data.users?.totalUsers || 0;
-  document.getElementById("consultations").innerText = data.consultations?.totalConsultations || 0;
+  document.getElementById("consultations").innerText =
+    data.consultations?.totalConsultations || 0;
   document.getElementById("doctors").innerText = data.users?.doctors || 0;
   document.getElementById("patients").innerText = data.users?.patients || 0;
-  document.getElementById("acceptedDoctors").innerText = data.users?.acceptedDoctors || 0;
-  document.getElementById("waitingDoctors").innerText = data.users?.unacceptedDoctors || 0;
-  document.getElementById("pending").innerText = data.consultations?.PENDING || 0;
-  document.getElementById("accepted").innerText = data.consultations?.ACCEPTED || 0;
+  document.getElementById("acceptedDoctors").innerText =
+    data.users?.acceptedDoctors || 0;
+  document.getElementById("waitingDoctors").innerText =
+    data.users?.unacceptedDoctors || 0;
+  document.getElementById("pending").innerText =
+    data.consultations?.PENDING || 0;
+  document.getElementById("accepted").innerText =
+    data.consultations?.ACCEPTED || 0;
   document.getElementById("paid").innerText = data.consultations?.PAID || 0;
-  document.getElementById("completed").innerText = data.consultations?.COMPLETED || 0;
-  document.getElementById("rejected").innerText = data.consultations?.REJECTED || 0;
+  document.getElementById("completed").innerText =
+    data.consultations?.COMPLETED || 0;
+  document.getElementById("rejected").innerText =
+    data.consultations?.REJECTED || 0;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
