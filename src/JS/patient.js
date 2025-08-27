@@ -1,3 +1,18 @@
+function activeReload() {
+  const loadingOverlay = document.createElement("div");
+  loadingOverlay.className = "loading-overlay";
+  loadingOverlay.innerHTML = `
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    `;
+  document.body.appendChild(loadingOverlay);
+}
+function sttopReload() {
+  document.querySelector(".loading-overlay").remove();
+}
+// activeReload();
+// sttopReload();
 let cardsContainer = document.getElementById("cards-container");
 const TheToken = localStorage.getItem("token");
 function cards(data) {
@@ -99,9 +114,7 @@ function handelBTN(consultationId, status, reportUrl) {
     return `<button onclick="payConsultation('${consultationId}')" class="btn btn-success btn-sm px-3">Pay</button>`;
   }
 }
-
 function viewReport(reportUrl) {
-  //consult.attachments.fileUrl
   if (reportUrl) {
     window.open(reportUrl, "_blank");
   } else {
@@ -109,7 +122,8 @@ function viewReport(reportUrl) {
   }
 }
 async function deleteConsultationApi(consultationId) {
-  if (!confirm("are you sure that u want to del consultation ?!")) {
+  if (confirm("are you sure that u want to del consultation ?!")) {
+    activeReload();
     try {
       const response = await fetch(
         "https://tamni.vercel.app/api/patient/deleteConsultation",
@@ -126,6 +140,8 @@ async function deleteConsultationApi(consultationId) {
       if (!response.ok) {
         throw new Error(data.message || "Delete failed");
       }
+      sttopReload();
+      window.location.reload();
       return data;
     } catch (error) {
       console.error("Error in deleteConsultationApi:", error);
@@ -133,25 +149,37 @@ async function deleteConsultationApi(consultationId) {
     }
   }
   alert("deleted canceled");
+  sttopReload();
 }
 async function payConsultation(consultationId) {
-  try {
-    const response = await fetch("https://tamni.vercel.app/api/patient/PAID", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${TheToken}`,
-      },
-      body: JSON.stringify({ consultationId }),
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.message || "Payment failed");
+  if (confirm("are you sure that u want to confirm payment ?!")) {
+    activeReload();
+    try {
+      const response = await fetch(
+        "https://tamni.vercel.app/api/patient/PAID",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${TheToken}`,
+          },
+          body: JSON.stringify({ consultationId }),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Payment failed");
+      }
+      sttopReload();
+      window.location.reload();
+      return data;
+    } catch (error) {
+      console.error("Error in payConsultation:", error);
+      throw error;
     }
-    return data;
-  } catch (error) {
-    console.error("Error in payConsultation:", error);
-    throw error;
+  } else {
+    alert("payment canceled");
+    sttopReload();
   }
 }
 function EditConsultation(id) {
@@ -173,6 +201,7 @@ function statusIcon(status) {
       return ``;
   }
 }
+
 // function activeReload() {
 //   const loadingOverlay = document.createElement("div");
 //   loadingOverlay.className = "loading-overlay";
