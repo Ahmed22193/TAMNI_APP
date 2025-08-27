@@ -28,7 +28,8 @@ function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
     renderNavbar();
-    window.location.reload();
+    // window.location.reload();
+    window.location.href='/index.html'
   }
 }
 

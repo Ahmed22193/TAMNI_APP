@@ -23,7 +23,6 @@ function NoData() {
     </tr>
     `;
 }
-
 // هنا دالة فيها المحتوي بتاع كل اليوزر
 let displayUsers = function (arr) {
   userTableBody.innerHTML = "";
