@@ -1,4 +1,9 @@
-
+/* .main{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
 * {
   padding: 0;
   margin: 0;
@@ -6,10 +11,12 @@
   font-family: 'Times New Roman', Times, serif;
 }
 .main {
-  margin-top: -95px;
+  margin-top: -94px;
   display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
+  background: #2A7B9B;
   background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, 
   rgba(173, 191, 222, 0.81) 0%, rgba(245, 245, 250, 1) 60%);
 }
@@ -23,12 +30,10 @@
   width: 100%;
   margin: 1rem auto;
 }
-
 .main .img .imgg dotlottie-wc {
   position: relative;
   left: 100px;
 }
-
 form {
   flex: 1; 
   display: flex; 
@@ -42,19 +47,16 @@ form {
   position: relative;
   right: 70px;
 }
-
 form h1 {
   margin: 1.5rem ;
   font-weight: 900;
 }
-
 .input-group {
   margin-bottom: 30px;
   position: relative;
   text-align: center;
   width: 90%;
 }
-
 .input-group input {
   border: none;
   width: 100%;
@@ -62,7 +64,6 @@ form h1 {
   font-size: 18px;
   border-radius: 20px;
 } 
-
 .input-group label {
   position: absolute;
   top: 30%;
@@ -73,13 +74,11 @@ form h1 {
   pointer-events: none;
   transition: 1s ease;
 }
-
 .input-group input:hover ~ label,
 .input-group input:valid ~ label {
   opacity: 0;
   top: 4%;
 }
-
 form button {
   width: 80%;
   padding: 10px;
@@ -88,7 +87,6 @@ form button {
   border: none;
   border-radius: 20px;
 }
-
 form .btn-submit {
   background-color: rgb(27, 84, 119);
   color: azure;
@@ -96,14 +94,12 @@ form .btn-submit {
   box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.632);
   cursor: pointer;
 }
-
 form h4 {
   color: #e5ecf8;
   background-color: rgb(27, 84, 119);
   text-align: left;
   cursor: pointer;
 }
-
 /* -------------------- الموبايل -------------------- */
 @media (max-width: 768px) {
   .main {
@@ -129,10 +125,15 @@ form h4 {
     right: -2px; 
   }
 }
-
 /* -------------------- تابلت -------------------- */
 @media (min-width: 769px) and (max-width: 991px) {
-  
+  main {
+    flex-direction: row;
+    height: 100vh;
+  }
+  .main .img {
+    width: 100%;
+  }
   .main .img .imgg {
     width: 100%;
     height: 100%;
@@ -148,7 +149,6 @@ form h4 {
     right: 5px;
   }
 }
-
 /* -------------------- لابتوب صغير -------------------- */
 @media (min-width: 992px) and (max-width: 1100px) {
   main {
@@ -174,7 +174,6 @@ form h4 {
     left: 20px;
   }
 }
-
 /* -------------------- لابتوب متوسط -------------------- */
 @media (min-width: 1101px) and (max-width: 1280px) {
   main {
