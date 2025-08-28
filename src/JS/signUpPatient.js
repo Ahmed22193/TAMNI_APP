@@ -96,6 +96,15 @@ function handleSubmit(e) {
 
 document.getElementById("myForm").addEventListener("submit", handleSubmit);
 
+
+const firstName = document.getElementById("firstName");
+const middleName = document.getElementById("middleName");
+const lastName = document.getElementById("lastName");
+const government = document.getElementById("government");
+const phone = document.getElementById("phone");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+
 ///// 🔹 Validation Functions 🔹 /////
 
 // ✅ firstName + middleName + lastName
@@ -111,20 +120,6 @@ function validateName(input) {
     return false;
   }
 }
-
-// ✅ government
-function validateGovernment(input) {
-  if (input.value.trim() !== "") {
-    input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
-    return true;
-  } else {
-    input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
-    return false;
-  }
-}
-
 // ✅ phone
 function validateEgyptianPhone(phoneInput) {
   const egyptianPhoneRegex = /^(010|011|012|015)[0-9]{8}$/;
@@ -140,7 +135,6 @@ function validateEgyptianPhone(phoneInput) {
     return false;
   }
 }
-
 // ✅ password
 function validatePassword(passInput) {
   if (passInput.value.length >= 6) {
@@ -153,7 +147,6 @@ function validatePassword(passInput) {
     return false;
   }
 }
-
 // ✅ confirmPassword
 function validateConfirmPassword(passInput, confirmInput) {
   if (confirmInput.value === passInput.value && confirmInput.value !== "") {
@@ -167,19 +160,11 @@ function validateConfirmPassword(passInput, confirmInput) {
   }
 }
 
-///// 🔹 Event Listeners (keyup) 🔹 /////
-const firstName = document.getElementById("firstName");
-const middleName = document.getElementById("middleName");
-const lastName = document.getElementById("lastName");
-const government = document.getElementById("government");
-const phone = document.getElementById("phone");
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmPassword");
+
 
 firstName.addEventListener("keyup", () => validateName(firstName));
 middleName.addEventListener("keyup", () => validateName(middleName));
 lastName.addEventListener("keyup", () => validateName(lastName));
-government.addEventListener("keyup", () => validateGovernment(government));
 phone.addEventListener("keyup", () => validateEgyptianPhone(phone));
 password.addEventListener("keyup", () => validatePassword(password));
 confirmPassword.addEventListener("keyup", () =>
@@ -200,7 +185,6 @@ function handleSubmit(e) {
     validateName(firstName) &
     validateName(middleName) &
     validateName(lastName) &
-    validateGovernment(government) &
     validateEgyptianPhone(phone) &
     validatePassword(password) &
     validateConfirmPassword(password, confirmPassword);
