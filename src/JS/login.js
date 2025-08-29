@@ -32,6 +32,12 @@ function validatePassword(passInput) {
 phone.addEventListener("keyup", () => validateEgyptianPhone(phone));
 password.addEventListener("keyup", () => validatePassword(password));
 
+
+
+
+
+
+
 function handleSubmit(event) {
   event.preventDefault();
 
