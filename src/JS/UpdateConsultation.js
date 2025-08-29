@@ -12,7 +12,7 @@ function getConsultationIdFromParams() {
   const params = new URLSearchParams(window.location.search);
   return params.get("id"); // بيرجع القيمة بتاعت ?id=xxx
 }
-
+ 
 function fillInputs() {
   const consultationId = getConsultationIdFromParams(); // id من البارام
   const consultations =

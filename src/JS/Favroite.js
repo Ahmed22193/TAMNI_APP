@@ -20,7 +20,6 @@ if (localStorage.getItem("favorites") !== null) {
 } else {
   favorites = [];
 }
-
 function cards(data) {
   cardsContainer.innerHTML = "";
   data.forEach((doctor) => {
@@ -83,7 +82,6 @@ function cards(data) {
 }
 
 function requestConsultation(doctorId) {
-  console.log("Requesting consultation for doctor ID:", doctorId);
   window.location.href = `../../src/JS/createConsultation.js?doctorId=${doctorId}`;
   window.location.href = `../pages/patient/createConsultation.html?doctorId=${doctorId}`;
 }

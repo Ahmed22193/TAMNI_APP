@@ -264,7 +264,7 @@ async function getConsultationOrder() {
   let localData = getFromLocalStorage(key);
   if (localData !== null) {
     displayConsultationOrders(localData);
-  }
+  } 
   try {
     let res = await fetch(
       "https://tamni.vercel.app/api/doctor/ConsultationsOrders",

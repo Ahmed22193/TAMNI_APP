@@ -30,7 +30,7 @@ document
       medicalHistory: Array.from(
         document.querySelectorAll("input[type=checkbox]:checked")
       ).map((cb) => cb.value),
-    };
+    }; 
 
     let description = `
       🎂{Age: ${data.age || "Not provided"}}---

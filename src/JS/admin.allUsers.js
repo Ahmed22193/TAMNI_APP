@@ -22,7 +22,7 @@ function NoData() {
         </td>
     </tr>
     `;
-}
+} 
 // هنا دالة فيها المحتوي بتاع كل اليوزر
 let displayUsers = function (arr) {
   userTableBody.innerHTML = "";
@@ -80,38 +80,6 @@ let displayUsers = function (arr) {
     }, 100);
   });
 };
-
-/* fetch("https://tamni.vercel.app/api/admin/getAllUsers", {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-})
-  .then((response) => {
-    if (
-      response.status === 404 ||
-      response.status === 401 ||
-      response.status === 500
-    ) {
-      NoData();
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .then((data) => {
-    const users = data.data;
-    allUsers.push(...users);
-    console.log(allUsers);
-    displayUsers(users);
-    document.querySelector(".loading-overlay").remove();
-  })
-  .catch((error) => {
-    console.error("Error fetching users:", error);
-    document.querySelector(".loading-overlay")?.remove();
-  });
- */
-
 function activateUser(userId) {
   const confirmActivate = confirm(
     "Are you sure you want to activate this user?"
@@ -139,7 +107,6 @@ function activateUser(userId) {
       });
   }
 }
-
 function deactivateUser(userId) {
   const confirmDeactivate = confirm(
     "Are you sure you want to `BLOCK` this user?"
@@ -167,7 +134,6 @@ function deactivateUser(userId) {
       });
   }
 }
-
 function deleteUser(userId) {
   const confirmDelete = prompt("Enter `DELETE` to confirm Deletion");
   if (confirmDelete === "DELETE") {
@@ -195,7 +161,6 @@ function deleteUser(userId) {
     alert("Deletion cancelled");
   }
 }
-
 /* ------------------------------------------ */
 /* ------------------------------------------ */
 /* ------------------------------------------ */

@@ -131,7 +131,7 @@ function handleSubmit(e) {
       setTimeout(() => {
         document.getElementById("myForm").reset();
         window.location.href = "login.html"; ///////////
-      }, 3000); // بعد 3 ثواني هيروح على صفحة تسجيل الدخول
+      }, 1500); // بعد 3 ثواني هيروح على صفحة تسجيل الدخول
     })
     .catch((error) => {
       // هنا بتعرض رسالة الخطأ اللي جايه من الـ API، مثلاً "الرقم مسجل بالفعل"

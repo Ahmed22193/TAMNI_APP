@@ -15,8 +15,10 @@ function saveToLocalStorage(key, data) {
 }
 function getFromLocalStorage(key) {
   const data = localStorage.getItem(key);
-  return data ? JSON.parse(data) : null;
+  return data ? JSON.parse(data) : [];
 }
+
+
 
 //activeReload();
 function NoData() {
@@ -32,6 +34,7 @@ function NoData() {
     </tr>
     `;
 }
+
 let allDoctors = [];
 
 /*let favorites;
@@ -47,32 +50,14 @@ let favorites = getFromLocalStorage("favorites") || [];
 const key = "allDoctors"; // مفتاح التخزين المحلي للأطباء
 
 const apiURL = "https://tamni.vercel.app/api/doctor/Doctors";
-
-/*fetch(apiURL)
-  .then((response) => {
-    if (response.status === 404 || response.status === 500) {
-      document.querySelector(".loading-overlay").remove();
-      NoData();
-      throw new Error("حدث خطأ في الطلب: " + response.status);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    document.querySelector(".loading-overlay").remove();
-    cards(data.data);
-    allDoctors.push(...data.data);
-  })
-  .catch((error) => {
-    document.querySelector(".loading-overlay").remove();
-    console.error("Error:", error);
-  });*/
 /*-----------------------جلب بيانات--------------------*/
+
 async function fetchAllDoctors() {
-  //activeReload();
   const localData = getFromLocalStorage(key);
   if (localData) {
     cards(localData);
   }
+
   try {
     const res = await fetch(apiURL, { method: "GET" });
     if (res.status === 404 || res.status === 500) {
@@ -152,7 +137,6 @@ function cards(data) {
 }
 
 function requestConsultation(doctorId) {
-  console.log("Requesting consultation for doctor ID:", doctorId);
   window.location.href = `../../src/JS/createConsultation.js?doctorId=${doctorId}`;
   window.location.href = `../pages/patient/createConsultation.html?doctorId=${doctorId}`;
 }
@@ -179,6 +163,8 @@ function AddToFavorites(doctorId) {
 let searchBar = document.getElementById("searchBar");
 let Specialty_filter = document.getElementById("Specialty_filter");
 let governments_filter = document.getElementById("governments_filter");
+
+
 searchBar.addEventListener("keyup", (e) => {
   if (e.target.value !== "") {
     const searchValue = e.target.value.toLowerCase();

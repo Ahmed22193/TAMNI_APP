@@ -32,12 +32,6 @@ function validatePassword(passInput) {
 phone.addEventListener("keyup", () => validateEgyptianPhone(phone));
 password.addEventListener("keyup", () => validatePassword(password));
 
-
-
-
-
-
-
 function handleSubmit(event) {
   event.preventDefault();
 
@@ -51,6 +45,7 @@ function handleSubmit(event) {
 
     const message = document.getElementById("message");
     message.innerHTML = ``;
+
     const formData = {
       phone: phone.value,
       password: password.value,
@@ -103,6 +98,6 @@ function handleSubmit(event) {
       });
   } else {
     message.innerHTML = ``;
-    message.innerHTML = `please enter the true phone and min password 6`;
+    message.innerHTML = `please enter the true phone and len of password 6`;
   }
 }
