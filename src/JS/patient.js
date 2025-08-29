@@ -1,6 +1,5 @@
 let cardsContainer = document.getElementById("cards-container");
 const TheToken = localStorage.getItem("token");
-
 function activeReload() {
   const loadingOverlay = document.createElement("div");
   loadingOverlay.className = "loading-overlay";
@@ -27,7 +26,6 @@ function NoData() {
 }
 // activeReload();
 // sttopReload();
-
 function cards(data) {
   cardsContainer.innerHTML = "";
   data.forEach((consult) => {
