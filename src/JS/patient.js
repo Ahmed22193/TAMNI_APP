@@ -15,7 +15,6 @@ function sttopReload() {
   const overlay = document.querySelector(".loading-overlay");
   if (overlay) overlay.remove();
 }
-
 function NoData() {
   cardsContainer.innerHTML = `
     <div class="text-center w-100">
@@ -32,10 +31,6 @@ function NoData() {
 function cards(data) {
   cardsContainer.innerHTML = "";
   data.forEach((consult) => {
-    let url =
-      consult.attachments && consult.attachments.length > 0
-        ? consult.attachments.map((att) => att.fileUrl)
-        : [];
     let fullName = `${consult.doctor.firstName} ${consult.doctor.middleName} ${consult.doctor.lastName}`;
     cardsContainer.innerHTML += `
       <div class="col">
@@ -68,7 +63,7 @@ function cards(data) {
             <div
               class="card-footer bg-white border-0 d-flex justify-content-between"
             >
-             ${handelBTN(consult._id, consult.status, url[0])}
+             ${handelBTN(consult._id, consult.status, consult.report)}
             </div>
           </div>
         </div>
@@ -137,13 +132,12 @@ function handelBTN(consultationId, status, reportUrl) {
   }
 }
 function viewReport(reportUrl) {
-  if (Array.isArray(reportUrl) && reportUrl.length > 0) {
-    window.open(reportUrl[0], "_blank");
+  if (reportUrl) {
+    window.open(reportUrl, "_blank");
   } else {
     alert("No report available");
   }
 }
-
 async function deleteConsultationApi(consultationId) {
   if (confirm("are you sure that u want to del consultation ?!")) {
     activeReload();
