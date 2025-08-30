@@ -342,8 +342,6 @@
   cursor: pointer;
 }
 
-
-
 /* إضافة هامش علوي للمحتوى الرئيسي حتى لا يغطيه الناف بار في كل الشاشات */
 body, .parent, main, .section:first-of-type {
   margin-top: 95px !important;

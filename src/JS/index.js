@@ -69,7 +69,7 @@ function renderNavbar() {
         <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
         <li><a class="a_link" href="/src/pages/admin/AllUsers.html">Users</a></li>
         <li><a class="a_link" href="/src/pages/admin/status.html">Stats</a></li>
-        <li><a class="a_link" href="/src/pages/favroite.html">♥</a></li>
+        <li><a class="a_link love" href="/src/pages/favroite.html">♥</a></li>
         <li><a class="a_link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i></a></li>
       `;
     } else if (userData?.userType === "DOCTOR") {
@@ -77,7 +77,7 @@ function renderNavbar() {
         <li><a class="a_link" href="/index.html">Home</a></li>
         <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
         <li><a class="a_link" href="/src/pages/doctor/ConsultationsOrder.html">Consultations</a></li>
-        <li><a class="a_link" href="/src/pages/favroite.html">♥</a></li>
+        <li><a class="a_link love" href="/src/pages/favroite.html">♥</a></li>
         <li><a class="a_link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i></a></li>
       `;
     } else {
@@ -85,7 +85,7 @@ function renderNavbar() {
         <li><a class="a_link" href="/index.html">Home</a></li>
         <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
         <li><a class="a_link" href="/src/pages/patient/MyCosultations.html">Consultations</a></li>
-        <li><a class="a_link" href="/src/pages/favroite.html">♥</a></li>
+        <li><a class="a_link love" href="/src/pages/favroite.html">♥</a></li>
         <li><a class="a_link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i></a></li>
       `;
     }
@@ -95,7 +95,7 @@ function renderNavbar() {
       <li><a class="a_link" href="/src/pages/AllDoctors.html">Doctors</a></li>
       <li><a class="a_link" href="/src/pages/Auth/login.html">Login</a></li>
       <li><a class="a_link" href="/src/pages/patientOrDoctor.html">Register</a></li>
-      <li><a class="a_link" href="/src/pages/favroite.html">♥</a></li>
+      <li><a class="a_link love" href="/src/pages/favroite.html">♥</a></li>
     `;
   }
   navbarLinks.innerHTML = linksHtml;

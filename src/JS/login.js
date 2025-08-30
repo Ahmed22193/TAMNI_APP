@@ -101,3 +101,4 @@ function handleSubmit(event) {
     message.innerHTML = `please enter the true phone and len of password 6`;
   }
 }
+  

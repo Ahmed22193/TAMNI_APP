@@ -4,6 +4,8 @@
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    font-family: 'Poppins', 'Cairo', sans-serif;
+
 }
 
 body {
@@ -11,12 +13,7 @@ body {
     margin: auto;
     background-color: #f9f9f9; /* لون فاتح بدلاً من الصورة */
 }
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', 'Cairo', sans-serif;
-}
+
 /* ===== Layout ===== */
 .parent {
     display: flex;
@@ -108,8 +105,9 @@ body {
 }
 
 .welcome-message span {
-    color: #ffd700; /* ذهبي مميز */
+    color: #36ffdd; /* ذهبي مميز */
     font-weight: bold;
+    font-family: 'Poppins', 'Cairo', sans-serif;
 }
 
 /* تأثير دخول الرسالة */
@@ -147,6 +145,7 @@ body {
 .section h2 span {
     color: #6a5acd;
     font-family: "Satisfy", cursive;
+    font-family: 'Poppins', 'Cairo', sans-serif;
 }
 
 /* About Section */
